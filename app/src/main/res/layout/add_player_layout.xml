@@ -1,63 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    tools:context=".ui.AddPlayerActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextPlayerName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Player Name"
-        android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextPlayerNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Player Number"
-        android:inputType="number"
-        android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPlayerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Player Name"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPlayerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Player Number"
+                android:inputType="number"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextPlayerPosition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Player Position"
-        android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextPlayerAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Player age"
-        android:textSize="20sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPlayerPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Player Position"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/buttonSavePlayer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Player" />
-</LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPlayerAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Player age"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonSavePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Player" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

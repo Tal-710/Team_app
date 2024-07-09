@@ -1,65 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    tools:context=".ui.AddEditTeamActivity">
 
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
-            <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextTeamName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Team Name"
-            android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttonSelectPhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Photo" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTeamName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Team Name"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/imageViewPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop" />
+            <Button
+                android:id="@+id/buttonSelectPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Photo" />
 
-        <TextView
-            android:id="@+id/textViewPlayers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Players"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingTop="16dp" />
+            <ImageView
+                android:id="@+id/imageViewPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewPlayers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/textViewPlayers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Players"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingTop="16dp" />
 
-        <Button
-            android:id="@+id/buttonAddPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Player"
-            android:layout_marginTop="8dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPlayers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
 
-        <Button
-            android:id="@+id/buttonSaveTeam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
-</ScrollView>
+            <Button
+                android:id="@+id/buttonAddPlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Player"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/buttonSaveTeam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
