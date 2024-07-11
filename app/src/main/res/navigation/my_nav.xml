@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/my_nav">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/allTeamsFragment">
 
+    <fragment
+        android:id="@+id/allTeamsFragment"
+        android:name="com.example.team_app.ui.AllTeamsFragment"
+        android:label="all_team_layout"
+        tools:layout="@layout/all_team_layout" >
+        <action
+            android:id="@+id/action_allTeamsFragment_to_addEditTeamFragment2"
+            app:destination="@id/addEditTeamFragment2"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_allTeamsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_allTeamsFragment_to_teamFragment"
+            app:destination="@id/teamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditTeamFragment2"
+        android:name="com.example.team_app.ui.AddEditTeamFragment"
+        android:label="add_edit_team_layout"
+        tools:layout="@layout/add_edit_team_layout" >
+        <action
+            android:id="@+id/action_addEditTeamFragment2_to_addPlayerFragment"
+            app:destination="@id/addPlayerFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addEditTeamFragment2_to_allTeamsFragment"
+            app:destination="@id/allTeamsFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"
+            app:popUpTo="@id/my_nav"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.team_app.ui.SettingsFragment"
+        android:label="settings_layout"
+        tools:layout="@layout/settings_layout" >
+        <action
+            android:id="@+id/action_settingsFragment_to_allTeamsFragment"
+            app:destination="@id/allTeamsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/from_right"
+            app:popUpTo="@id/my_nav"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPlayerFragment"
+        android:name="com.example.team_app.ui.AddPlayerFragment"
+        android:label="add_player_layout"
+        tools:layout="@layout/add_player_layout" >
+        <action
+            android:id="@+id/action_addPlayerFragment_to_addEditTeamFragment2"
+            app:destination="@id/addEditTeamFragment2"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left"
+            app:popUpTo="@id/addEditTeamFragment2"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="com.example.team_app.ui.TeamFragment"
+        android:label="team_layout"
+        tools:layout="@layout/team_layout" >
+        <action
+            android:id="@+id/action_teamFragment_to_addEditTeamFragment2"
+            app:destination="@id/addEditTeamFragment2" />
+        <action
+            android:id="@+id/action_teamFragment_to_allTeamsFragment"
+            app:destination="@id/allTeamsFragment"
+            app:popUpTo="@id/my_nav" />
+    </fragment>
 </navigation>

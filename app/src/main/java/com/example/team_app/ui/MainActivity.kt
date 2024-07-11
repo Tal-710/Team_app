@@ -1,10 +1,12 @@
-package com.example.team_app
+package com.example.team_app.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.team_app.R
 import com.example.team_app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

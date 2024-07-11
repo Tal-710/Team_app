@@ -1,4 +1,4 @@
-package com.example.team_app.ui.fragment
+package com.example.team_app.ui
 
 import androidx.fragment.app.Fragment
 

@@ -5,64 +5,69 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SettingsActivity">
+    tools:context=".ui.SettingsFragment">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
-        <LinearLayout
+        <!-- Dark Mode Switch -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchDarkMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="16dp"
+            android:padding="8dp"
+            android:text="Dark Mode" />
 
-            <!-- Dark Mode Switch -->
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switchDarkMode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dark Mode"
-                android:padding="8dp"
-                android:layout_marginBottom="16dp"/>
+        <!-- Background Color Picker Button -->
+        <Button
+            android:id="@+id/buttonPickBackgroundColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Pick Background Color" />
 
-            <!-- Background Color Picker Button -->
-            <Button
-                android:id="@+id/buttonPickBackgroundColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pick Background Color"
-                android:layout_marginBottom="16dp" />
+        <!-- Font Size Selector -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:text="Font Size"
+            android:textSize="18sp" />
 
-            <!-- Font Size Selector -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Font Size"
-                android:padding="8dp"
-                android:textSize="18sp"
-                android:layout_marginBottom="8dp" />
+        <Spinner
+            android:id="@+id/spinnerFontSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:minHeight="48dp"
+            android:scrollbarSize="20dp" />
 
-            <Spinner
-                android:id="@+id/spinnerFontSize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:minHeight="48dp"
-                android:scrollbarSize="20dp" />
+        <!-- Sample Font Preview -->
+        <TextView
+            android:id="@+id/textViewSampleFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Sample Text"
+            android:textSize="16sp" />
 
-            <!-- Sample Font Preview -->
-            <TextView
-                android:id="@+id/textViewSampleFont"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sample Text"
-                android:textSize="16sp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center" />
+    </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
-
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="200dp"
+        android:layout_height="52dp"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
