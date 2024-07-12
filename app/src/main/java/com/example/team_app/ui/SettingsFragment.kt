@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.team_app.R
 import com.example.team_app.databinding.SettingsLayoutBinding
+import androidx.appcompat.app.AppCompatDelegate
 
 class SettingsFragment : Fragment(){
 
@@ -23,9 +26,20 @@ class SettingsFragment : Fragment(){
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_allTeamsFragment)
         }
-        return binding.root
-    }
+        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    // Switch is "on" state
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    showToast("Switch is On")
+                } else {
+                    // Switch is "off" state
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    showToast("Switch is OFF ")
+                }
+            }
 
+        return binding.root
+        }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
@@ -35,4 +49,7 @@ class SettingsFragment : Fragment(){
         super.onDestroyView()
         _binding= null
     }
+private fun showToast(message: String) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
 }
