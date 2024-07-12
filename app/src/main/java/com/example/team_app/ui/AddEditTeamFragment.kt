@@ -34,7 +34,7 @@ class AddEditTeamFragment : Fragment() {
 
     private var imageUri: Uri? = null
 
-    val pickImageLauncher: ActivityResultLauncher<Array<String>> =
+    private val pickImageLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) {
             binding.imageViewTeamLogo.setImageURI(it)
             requireActivity().contentResolver.takePersistableUriPermission(

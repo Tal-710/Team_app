@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.team_app.R
 import com.example.team_app.data.model.Player
@@ -24,7 +23,7 @@ class AddPlayerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = AddPlayerLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }

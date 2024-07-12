@@ -32,7 +32,8 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private val _playerList = MutableLiveData<List<Player>>()
     val playerList: LiveData<List<Player>> get() = _playerList
 
-    val teamList: LiveData<List<TeamWithPlayers>> = teamRepository.getAllTeams()
+    private val _teamList = MutableLiveData<List<TeamWithPlayers>>()
+    val teamList: LiveData<List<TeamWithPlayers>> get() = _teamList
 
     private val _chosenTeam = MutableLiveData<TeamWithPlayers>()
     val chosenTeam: LiveData<TeamWithPlayers> get() = _chosenTeam
@@ -42,13 +43,20 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private val _isEditMode = MutableLiveData<Boolean>()
     val isEditMode: LiveData<Boolean> get() = _isEditMode
 
+    init {
+        loadAllTeams()
+        resetEditMode()
+    }
+
     fun clearPlayerList() {
         tempPlayerList.clear()
         _playerList.value = emptyList()
     }
 
-    init {
-        resetEditMode()
+    private fun loadAllTeams() {
+        viewModelScope.launch {
+            _teamList.value = teamRepository.getAllTeams()
+        }
     }
 
     fun setEditMode() {
@@ -64,13 +72,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         _playerList.value = tempPlayerList
     }
 
-     fun removePlayer(index: Int) {
-         val player = tempPlayerList.removeAt(index)
-         viewModelScope.launch {
-             playerRepository.deletePlayer(player)
-             _playerList.value = tempPlayerList
-         }
-     }
+    fun removePlayer(index: Int) {
+        val player = tempPlayerList.removeAt(index)
+        viewModelScope.launch {
+            playerRepository.deletePlayer(player)
+            _playerList.value = tempPlayerList
+        }
+    }
 
     fun saveTeam(team: Team) {
         viewModelScope.launch {
@@ -81,6 +89,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
             }
             clearPlayerList()
             resetEditMode()
+            loadAllTeams()
         }
     }
 
@@ -92,12 +101,14 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
                 playerRepository.addPlayer(player)
             }
             resetEditMode()
+            loadAllTeams()
         }
     }
 
     fun deleteTeam(team: Team) {
         viewModelScope.launch {
             teamRepository.deleteTeam(team)
+            loadAllTeams()
         }
     }
 

@@ -1,6 +1,5 @@
-package com.example.team_app.data
+package com.example.team_app.data.local_db
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.team_app.data.model.Team
 import com.example.team_app.data.model.TeamWithPlayers
@@ -10,7 +9,7 @@ interface TeamDao {
 
     @Transaction
     @Query("SELECT * FROM teams")
-    fun getAllTeamsWithPlayers(): LiveData<List<TeamWithPlayers>>
+    suspend fun getAllTeamsWithPlayers(): List<TeamWithPlayers>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(team: Team): Long

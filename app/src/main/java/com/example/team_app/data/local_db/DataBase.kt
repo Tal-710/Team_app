@@ -7,7 +7,7 @@
 //import com.example.team_app.data.model.Player
 //import com.example.team_app.data.model.Team
 //import com.example.team_app.data.local_db.PlayerDao
-//import com.example.team_app.data.TeamDao
+//import com.example.team_app.data.local_db.TeamDao
 //
 //@Database(entities = [Team::class, Player::class], version = 1, exportSchema = false)
 //abstract class AppDatabase : RoomDatabase() {
@@ -41,7 +41,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.team_app.data.model.Player
 import com.example.team_app.data.model.Team
-import com.example.team_app.data.TeamDao
 
 @Database(entities = [Team::class, Player::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -54,7 +53,7 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
 
         fun getDatabase(context: Context) = instance?: synchronized(this){
-            Room.databaseBuilder(context.applicationContext,AppDatabase :: class.java,"team_app_database").fallbackToDestructiveMigration()
+            Room.databaseBuilder(context.applicationContext,AppDatabase :: class.java,"team_app_database")
            .build().also { instance = it }
 
 
