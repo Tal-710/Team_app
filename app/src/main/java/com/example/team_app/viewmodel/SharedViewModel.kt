@@ -116,6 +116,5 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         teamName.value = ""
         teamLogoUri.value = null
         _isEditMode.value = false
-        tempPlayerList.clear()
     }
 }
