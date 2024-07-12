@@ -30,11 +30,11 @@ class SettingsFragment : Fragment(){
                 if (isChecked) {
                     // Switch is "on" state
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    showToast("Switch is On")
+                    showToast("Dark mode is On")
                 } else {
                     // Switch is "off" state
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    showToast("Switch is OFF ")
+                    showToast("Dark mode is OFF ")
                 }
             }
 

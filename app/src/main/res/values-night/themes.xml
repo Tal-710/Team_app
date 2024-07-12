@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Team_app" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Theme.Team_app" parent="Theme.Material3.DayNight.NoActionBar">
+        <!--change text color depending on dark/light mode-->
+        <!--<item name="colorPrimary">@color/light_Text_Color_1</item>-->
+        <item name="android:textColor">@color/dark_Text_Color_1</item>
+        <item name="android:background">@color/dark_background_Color_1</item>
     </style>
 </resources>
