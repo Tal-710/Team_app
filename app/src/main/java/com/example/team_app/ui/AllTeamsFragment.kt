@@ -52,7 +52,6 @@ class AllTeamsFragment : Fragment() {
 
         binding.buttonAddTeam.setOnClickListener {
             sharedViewModel.resetEditMode()
-            sharedViewModel.clearPlayerList()
             findNavController().navigate(R.id.action_allTeamsFragment_to_addEditTeamFragment2)
         }
 

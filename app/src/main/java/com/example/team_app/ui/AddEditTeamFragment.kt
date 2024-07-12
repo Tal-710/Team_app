@@ -200,4 +200,3 @@ class AddEditTeamFragment : Fragment() {
         _binding = null
     }
 }
-

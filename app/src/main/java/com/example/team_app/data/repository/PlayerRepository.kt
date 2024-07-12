@@ -17,8 +17,10 @@ class PlayerRepository(application: Application) {
         playerDao = db.playerDao()
     }
 
-    fun getPlayersForTeam(teamId: Long): LiveData<List<Player>>? {
-        return playerDao?.getPlayersForTeam(teamId)
+    suspend fun getPlayersByTeamId(teamId: Long): List<Player> {
+        return withContext(Dispatchers.IO) {
+            playerDao?.getPlayersByTeamId(teamId)!!
+        }
     }
 
     suspend fun addPlayer(player: Player) {

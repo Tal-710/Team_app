@@ -26,7 +26,7 @@ interface PlayerDao {
     fun getPlayer(id:Long) : Player
 
     @Query("SELECT * FROM players WHERE teamId = :teamId")
-    fun getPlayersForTeam(teamId: Long): LiveData<List<Player>>
+    fun getPlayersByTeamId(teamId: Long): List<Player>
 
 
 }

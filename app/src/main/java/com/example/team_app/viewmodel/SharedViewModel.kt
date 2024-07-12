@@ -64,10 +64,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         _playerList.value = tempPlayerList
     }
 
-    fun removePlayer(index: Int) {
-        tempPlayerList.removeAt(index)
-        _playerList.value = tempPlayerList
-    }
+     fun removePlayer(index: Int) {
+         val player = tempPlayerList.removeAt(index)
+         viewModelScope.launch {
+             playerRepository.deletePlayer(player)
+             _playerList.value = tempPlayerList
+         }
+     }
 
     fun saveTeam(team: Team) {
         viewModelScope.launch {
@@ -113,6 +116,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         teamName.value = ""
         teamLogoUri.value = null
         _isEditMode.value = false
+        tempPlayerList.clear()
     }
 }
-
