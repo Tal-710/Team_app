@@ -1,9 +1,11 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Team_app" parent="Theme.Material3.DayNight.NoActionBar">
-        <!--change text color depending on dark/light mode-->
-        <!--<item name="colorPrimary">@color/dark_Text_Color_1</item>-->
-        <item name="android:textColor">@color/light_Text_Color_1</item>
-        <item name="android:background">@color/light_background_Color_1</item>
+        <!--this is light theme file,add here styles that you want to be in light mode-->
+        <!-- for example <item name="colorPrimary">@color/Text_Color_1</item> the color will
+        the same as the one in color light-->
+        <item name="android:textColor">@color/text_Color_1</item>
+        <item name="android:background">@color/background_Color_1</item>
     </style>
+
 </resources>

@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
+    var darkMode = false
+
     private val playerRepository = PlayerRepository(application)
     private val teamRepository = TeamRepository(application)
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="light_Text_Color_1">#FF0000</color>
-    <color name="dark_Text_Color_1">#FF000000</color>
+    <!--this is dark color file,add here color that you want to be in dark mode-->
+    <color name="text_Color_1">#FFFFFF</color>
+    <color name="background_Color_1">#808080</color>
+    <color name="btn_Text_Color_1">#808080</color>
 </resources>
