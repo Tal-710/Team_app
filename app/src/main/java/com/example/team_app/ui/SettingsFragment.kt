@@ -1,21 +1,21 @@
 package com.example.team_app.ui
 
 import android.os.Bundle
-import android.view.GestureDetector
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CompoundButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.team_app.R
 import com.example.team_app.databinding.SettingsLayoutBinding
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.activityViewModels
-import com.example.team_app.ui.adapter.TeamAdapter
 import com.example.team_app.viewmodel.SharedViewModel
+
 
 class SettingsFragment : Fragment(){
 
@@ -33,6 +33,17 @@ class SettingsFragment : Fragment(){
             android.R.layout.simple_spinner_item)
             binding.spinnerFontSize.adapter = spinnerArrayAdapter
 
+        binding.spinnerFontSize.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                if (parent != null) {
+                    sharedViewModel.spinnerPos= parent.getItemIdAtPosition(position)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        })
         // binding.spinnerFontSize.onItemClickListener to do add listner to change size of spinner
         //and add the value to sharedview
 
@@ -58,7 +69,7 @@ class SettingsFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.switchDarkMode.isChecked=sharedViewModel.darkMode
-
+        //binding.spinnerFontSize.selectedItemId=sharedViewModel.spinnerPos
 
     }
 

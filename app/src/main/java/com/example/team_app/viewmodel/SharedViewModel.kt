@@ -2,6 +2,7 @@ package com.example.team_app.viewmodel
 
 import android.app.Application
 import android.net.Uri
+import android.widget.Spinner
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +17,8 @@ import kotlinx.coroutines.launch
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     var darkMode = false
+    var spinnerPos : Long =0 //set as Long to prevent constant converstion between types and as getting
+    //spinner position is returned as long
 
     private val playerRepository = PlayerRepository(application)
     private val teamRepository = TeamRepository(application)
