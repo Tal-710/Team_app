@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -19,6 +20,7 @@ import com.example.team_app.databinding.AllTeamLayoutBinding
 import com.example.team_app.ui.adapter.TeamAdapter
 import com.example.team_app.viewmodel.SharedViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.functions.FirebaseFunctions
 
 class AllTeamsFragment : Fragment() {
 
@@ -27,6 +29,7 @@ class AllTeamsFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var teamAdapter: TeamAdapter
     private lateinit var gestureDetector: GestureDetector
+    private lateinit var functions: FirebaseFunctions
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +48,7 @@ class AllTeamsFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 4)
             adapter = teamAdapter
         }
+
 
         sharedViewModel.teamList.observe(viewLifecycleOwner, Observer { teams ->
             teams?.let { teamAdapter.updateTeams(it) }

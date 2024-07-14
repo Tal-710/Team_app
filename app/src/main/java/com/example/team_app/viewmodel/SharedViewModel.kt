@@ -25,6 +25,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     val teamName = MutableLiveData<String>()
     val teamLogoUri = MutableLiveData<Uri?>()
+    val teamEmail = MutableLiveData<String>()
 
     private val _editTeam = MutableLiveData<TeamWithPlayers?>()
     val editTeam: LiveData<TeamWithPlayers?> get() = _editTeam
@@ -43,10 +44,17 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private val _isEditMode = MutableLiveData<Boolean>()
     val isEditMode: LiveData<Boolean> get() = _isEditMode
 
+//    private val _contactNumber = MutableLiveData<String>()
+//    val contactNumber: LiveData<String> get() = _contactNumber
+
     init {
         loadAllTeams()
         resetEditMode()
     }
+
+//    fun setContactNumber(number: String) {
+//        _contactNumber.value = number
+//    }
 
     fun clearPlayerList() {
         tempPlayerList.clear()
@@ -127,5 +135,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         teamName.value = ""
         teamLogoUri.value = null
         _isEditMode.value = false
+        teamEmail.value= ""
     }
 }

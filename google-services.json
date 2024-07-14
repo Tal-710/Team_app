@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1021076916381",
+    "project_id": "teamappemail-9b294",
+    "storage_bucket": "teamappemail-9b294.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021076916381:android:0e0f5f275a8e1dbaf46c74",
+        "android_client_info": {
+          "package_name": "com.example.team_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJcAQHKwq9_HLIRF4rIbQ26WtFGxQnKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

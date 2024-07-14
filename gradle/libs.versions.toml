@@ -12,6 +12,7 @@ constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.7.7"
 leanback = "1.0.0"
 uiAndroid = "1.6.8"
+firebaseFunctionsKtx = "21.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +26,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-leanback = { group = "androidx.leanback", name = "leanback", version.ref = "leanback" }
 androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
+firebase-functions-ktx = { group = "com.google.firebase", name = "firebase-functions-ktx", version.ref = "firebaseFunctionsKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

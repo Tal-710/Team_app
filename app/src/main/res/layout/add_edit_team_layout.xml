@@ -5,14 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AddEditTeamFragment">
+    tools:context=".ui.AddEditTeamFragment"
+    android:padding="16dp">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSaveTeam"
-        android:padding="16dp">
+        app:layout_constraintBottom_toTopOf="@id/buttonSaveTeam">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +23,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+                android:maxWidth="480dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTeamName"
                     android:layout_width="match_parent"
@@ -34,6 +37,7 @@
             <Button
                 android:id="@+id/buttonSelectPhoto"
                 android:layout_width="wrap_content"
+                android:backgroundTint="@color/custom_blue"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
@@ -47,6 +51,28 @@
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop" />
+<!--            <Button-->
+<!--                android:id="@+id/buttonAddTeamContact"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_gravity="start"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:text="Add Contact" />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxWidth="480dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTeamEmail"
+                    android:layout_marginTop="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter your E-mail"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/textViewPlayers"
@@ -58,46 +84,21 @@
                 android:textStyle="bold"
                 android:paddingTop="16dp" />
 
-            <LinearLayout
-                android:id="@+id/headerLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/textViewHeaderName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Name"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewHeaderNumber"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Number"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewPlayers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false"/>
-
             <Button
                 android:id="@+id/buttonAddPlayer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Player"
-                android:layout_marginTop="8dp" />
+                android:backgroundTint="@color/custom_blue"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="start" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -106,6 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
+        android:backgroundTint="@color/custom_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

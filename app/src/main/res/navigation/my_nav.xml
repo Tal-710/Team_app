@@ -28,7 +28,11 @@
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_allTeamsFragment_to_teamFragment"
-            app:destination="@id/teamFragment" />
+            app:destination="@id/teamFragment"
+            app:enterAnim="@anim/from_up"
+            app:exitAnim="@anim/to_down"
+            app:popEnterAnim="@anim/from_down"
+            app:popExitAnim="@anim/to_up" />
     </fragment>
     <fragment
         android:id="@+id/addEditTeamFragment2"
@@ -52,6 +56,13 @@
             app:popExitAnim="@anim/to_left"
             app:popUpTo="@id/my_nav"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addEditTeamFragment2_to_teamFragment"
+            app:destination="@id/teamFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -90,10 +101,18 @@
         tools:layout="@layout/team_layout" >
         <action
             android:id="@+id/action_teamFragment_to_addEditTeamFragment2"
-            app:destination="@id/addEditTeamFragment2" />
+            app:destination="@id/addEditTeamFragment2"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_teamFragment_to_allTeamsFragment"
             app:destination="@id/allTeamsFragment"
+            app:enterAnim="@anim/from_down"
+            app:exitAnim="@anim/to_up"
+            app:popEnterAnim="@anim/from_up"
+            app:popExitAnim="@anim/to_down"
             app:popUpTo="@id/my_nav" />
     </fragment>
 </navigation>

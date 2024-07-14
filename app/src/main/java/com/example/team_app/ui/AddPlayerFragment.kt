@@ -51,7 +51,6 @@ class AddPlayerFragment : Fragment() {
             }
         }
 
-        // Using TextWatchers to avoid using setText directly
         binding.editTextPlayerName.addTextChangedListener {
             sharedViewModel.playerName.value = it.toString()
         }
@@ -127,7 +126,7 @@ class AddPlayerFragment : Fragment() {
         }
 
         val playerAge = age.toIntOrNull()
-        if (playerAge == null || playerAge !in 16..99) {
+        if (playerAge == null || playerAge !in 0..99) {
             showToast("Age must be between 16 and 99.")
             return false
         }
