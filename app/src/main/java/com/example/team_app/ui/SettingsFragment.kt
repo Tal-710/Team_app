@@ -36,40 +36,113 @@ class SettingsFragment : Fragment(){
         val spinnerTextSizeAdapter=ArrayAdapter.createFromResource(requireContext(), R.array.text_Size_Spinner,
             android.R.layout.simple_spinner_item)
         binding.spinnerFontSize.adapter = spinnerTextSizeAdapter
-        /*val spinnerBackgroundColorAdapter=ArrayAdapter.createFromResource(requireContext(), R.array.text_Size_Spinner,
+        val spinnerBackgroundColorAdapter=ArrayAdapter.createFromResource(requireContext(), R.array.background_Color_Spinner,
             android.R.layout.simple_spinner_item)
-        binding..adapter = spinnerBackgroundColorAdapter
-         */
+        binding.spinnerBackGroundColor.adapter = spinnerBackgroundColorAdapter
+
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    // Switch is "on" state
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    sharedViewModel.darkMode=true
-                    showToast("Dark mode is On")
-                } else {
-                    // Switch is "off" state
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    sharedViewModel.darkMode=false
-                    showToast("Dark mode is OFF ")
-                }
+            if (isChecked) {
+                // Switch is "on" state
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                sharedViewModel.darkMode=true
+                showToast("Dark mode is On")
+            } else {
+                // Switch is "off" state
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                sharedViewModel.darkMode=false
+                showToast("Dark mode is OFF ")
             }
+        }
 
         return binding.root
-        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.switchDarkMode.isChecked=sharedViewModel.darkMode
-        //binding.spinnerFontSize.selectedItemId=sharedViewModel.spinnerPos
-        binding.spinnerFontSize.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.spinnerBackGroundColor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
+        {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+            {
+                if (parent != null) {
+                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                    val currentBackground =
+                        sharedPref?.getInt("backgroundColor", R.style.Theme_Team_app_White)
+                    if (position == 0 &&
+                        currentBackground != R.style.Theme_Team_app_White)
+                    {
+                        if (sharedPref != null) {
+                            with(sharedPref.edit()) {
+                                this.putInt("backgroundColor", R.style.Theme_Team_app_White)
+                                this.apply()
+                            }
+                        }
+                        if (activity != null) {
+                            recreate(activity!!)
+                        }
+                    }
+                    if (position==1 &&
+                        currentBackground != R.style.Theme_Team_app_Green)
+                    {
+                        if (sharedPref != null) {
+                            with(sharedPref.edit()) {
+                                this.putInt("backgroundColor", R.style.Theme_Team_app_Green)
+                                this.apply()
+                            }
+                        }
+                        if (activity != null) {
+                            recreate(activity!!)
+                        }
+                    }
+                    if (position == 2 &&
+                        currentBackground != R.style.Theme_Team_app_Yellow)
+                    {
+                        if (sharedPref != null) {
+                            with(sharedPref.edit()) {
+                                this.putInt("backgroundColor", R.style.Theme_Team_app_Yellow)
+                                this.apply()
+                            }
+                        }
+                        if (activity != null) {
+                            recreate(activity!!)
+                        }
+                    }
+                    if (position == 3 &&
+                        currentBackground != R.style.Theme_Team_app_Red)
+                    {
+                        if (sharedPref != null) {
+                            with(sharedPref.edit()) {
+                                this.putInt("backgroundColor", R.style.Theme_Team_app_Red)
+                                this.apply()
+                            }
+                        }
+                        if (activity != null) {
+                            recreate(activity!!)
+                        }
+                    }
+                    if (position == 4 &&
+                        currentBackground != R.style.Theme_Team_app_Purple)
+                    {
+                        if (sharedPref != null) {
+                            with(sharedPref.edit()) {
+                                this.putInt("backgroundColor", R.style.Theme_Team_app_Purple)
+                                this.apply()
+                            }
+                        }
+                        if (activity != null) {
+                            recreate(activity!!)
+                        }
+                    }
+                }
+
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        binding.spinnerFontSize.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
+        {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (parent != null) {
                     sharedViewModel.spinnerPos= parent.getItemIdAtPosition(position)
                 }
-                else
-                {
-                    sharedViewModel.spinnerPos= 0
-                }
-                showToast(position.toString())
                 val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
                 val currentTextSize = sharedPref?.getInt("textSize", R.style.Theme_Team_app_Small)
                 if(position==0 ) {
@@ -112,15 +185,9 @@ class SettingsFragment : Fragment(){
                     }
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
             }
         }
-        // binding.spinnerFontSize.onItemClickListener to do add listner to change size of spinner
-        //and add the value to sharedview
-
-
     }
 
     override fun onDestroyView() {
@@ -128,7 +195,7 @@ class SettingsFragment : Fragment(){
         super.onDestroyView()
         _binding= null
     }
-private fun showToast(message: String) {
-    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-}
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 }

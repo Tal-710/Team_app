@@ -4,6 +4,12 @@
         <item>small</item>
         <item>medium</item>
         <item>large</item>
-
+    </string-array>
+    <string-array name="background_Color_Spinner">
+        <item>White</item>
+        <item>Green</item>
+        <item>Yellow</item>
+        <item>Red</item>
+        <item>Purple</item>
     </string-array>
 </resources>

@@ -19,4 +19,26 @@
     <style name="Theme.Team_app.Large" parent="Theme.Team_app">
         <item name="android:textSize">20sp</item>
     </style>
+
+
+    <style name="Theme.Team_app.White" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_White</item>
+    </style>
+
+    <style name="Theme.Team_app.Green" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Green</item>
+    </style>
+
+    <style name="Theme.Team_app.Yellow" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Yellow</item>
+    </style>
+
+    <style name="Theme.Team_app.Red" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Red</item>
+    </style>
+
+    <style name="Theme.Team_app.Purple" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Purple</item>
+    </style>
+
 </resources>

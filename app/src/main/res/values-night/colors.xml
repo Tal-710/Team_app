@@ -9,4 +9,5 @@
     <color name="background_Color_Green">#008000</color>
     <color name="background_Color_Yellow">#FFFF00</color>
     <color name="background_Color_White">#FFFFFF</color>
+    <color name="background_Color_Purple">#A020F0</color>
 </resources>

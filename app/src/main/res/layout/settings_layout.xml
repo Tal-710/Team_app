@@ -24,14 +24,22 @@
             android:layout_marginBottom="16dp"
             android:padding="8dp"
             android:text="Dark Mode" />
-
-        <!-- Background Color Picker Button -->
-        <Button
-            android:id="@+id/buttonPickBackgroundColor"
+        <!-- Background Color Picker Spinner -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Pick Background Color" />
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:text="BackGroundColor"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinnerBackGroundColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:minHeight="48dp"
+            android:scrollbarSize="20dp" />
 
         <!-- Font Size Selector -->
         <TextView
