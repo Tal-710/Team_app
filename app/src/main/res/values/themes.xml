@@ -5,7 +5,19 @@
         <!-- for example <item name="colorPrimary">@color/Text_Color_1</item> the color will
         the same as the one in color light-->
         <item name="android:textColor">@color/text_Color_1</item>
-        <item name="android:background">@color/background_Color_1</item>
+        <item name="android:background">@color/background_Color_Default</item>
+    </style>
+
+    <style name="Theme.Team_app.Small" parent="Theme.Team_app">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Theme.Team_app.Medium" parent="Theme.Team_app">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Theme.Team_app.Large" parent="Theme.Team_app">
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

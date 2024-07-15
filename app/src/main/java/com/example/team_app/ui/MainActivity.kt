@@ -1,5 +1,6 @@
 package com.example.team_app.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +14,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val textSize = sharedPref.getInt("textSize", R.style.Theme_Team_app_Small)
+        setTheme(textSize)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()

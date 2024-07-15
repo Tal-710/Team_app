@@ -2,6 +2,11 @@
 <resources>
     <!--this is dark color file,add here color that you want to be in dark mode-->
     <color name="text_Color_1">#FFFFFF</color>
-    <color name="background_Color_1">#808080</color>
     <color name="btn_Text_Color_1">#808080</color>
+    <color name="background_Color_Default">#FFFFFF</color>
+    <color name="background_Color_Red">#FF0000</color>
+    <color name="background_Color_Blue">#0000FF</color>
+    <color name="background_Color_Green">#008000</color>
+    <color name="background_Color_Yellow">#FFFF00</color>
+    <color name="background_Color_White">#FFFFFF</color>
 </resources>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Team_app</string>
+    <string-array name="text_Size_Spinner">
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+
+    </string-array>
 </resources>

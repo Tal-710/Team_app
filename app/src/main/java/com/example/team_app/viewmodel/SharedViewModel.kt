@@ -17,8 +17,9 @@ import kotlinx.coroutines.launch
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     var darkMode = false
-    var spinnerPos : Long =0 //set as Long to prevent constant converstion between types and as getting
+    var spinnerPos : Long = 0 //set as Long to prevent constant converstion between types and as getting
     //spinner position is returned as long
+
 
     private val playerRepository = PlayerRepository(application)
     private val teamRepository = TeamRepository(application)

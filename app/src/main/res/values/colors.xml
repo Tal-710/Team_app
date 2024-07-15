@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--this is light color file,add here color that you want to be in light mode-->
-    <color name="text_Color_1">#FF0000</color>
-    <color name="background_Color_1">#FFFFFF</color>
+    <color name="text_Color_1">#000000</color>
     <color name="btn_Text_Color_1">#FFFFFF</color>
+    <color name="background_Color_Default">#FFFFFF</color>
+    <color name="background_Color_Red">#FF0000</color>
+    <color name="background_Color_Blue">#0000FF</color>
+    <color name="background_Color_Green">#008000</color>
+    <color name="background_Color_Yellow">#FFFF00</color>
+    <color name="background_Color_White">#FFFFFF</color>
 </resources>
