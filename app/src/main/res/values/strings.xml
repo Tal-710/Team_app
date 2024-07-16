@@ -2,11 +2,13 @@
     <string name="app_name">Team_app</string>
 
         <string-array name="text_Size_Spinner">
-            <item>small</item>
-            <item>medium</item>
-            <item>large</item>
+            <item>Select Text Size</item>
+            <item>Small</item>
+            <item>Medium</item>
+            <item>Large</item>
         </string-array>
     <string-array name="background_Color_Spinner">
+        <item>Select Background</item>
         <item>White</item>
         <item>Green</item>
         <item>Yellow</item>

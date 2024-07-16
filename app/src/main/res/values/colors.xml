@@ -8,6 +8,8 @@
     <color name="background_Color_Blue">#0000FF</color>
     <color name="background_Color_Green">#008000</color>
     <color name="background_Color_Yellow">#FFFF00</color>
-    <color name="background_Color_White">#FFFFFF</color>
+    <color name="background_Color_Default_Mode_color">#FFFFFF</color>
     <color name="background_Color_Purple">#A020F0</color>
+    <color name="button_Text_Background_Color">#000000</color>
+    <color name="button_Background_Color">#D3D3D3</color>
 </resources>

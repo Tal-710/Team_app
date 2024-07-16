@@ -59,6 +59,8 @@ class SettingsFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.switchDarkMode.isChecked=sharedViewModel.darkMode
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val currentTextSize=sharedPref?.getInt("textSize", R.style.color_White)
         binding.spinnerBackGroundColor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
         {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
@@ -66,13 +68,13 @@ class SettingsFragment : Fragment(){
                 if (parent != null) {
                     val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
                     val currentBackground =
-                        sharedPref?.getInt("backgroundColor", R.style.Theme_Team_app_White)
-                    if (position == 0 &&
-                        currentBackground != R.style.Theme_Team_app_White)
+                        sharedPref?.getInt("backgroundColor", R.style.color_White)
+                    if (position == 1 &&
+                        currentBackground != R.style.color_White)
                     {
                         if (sharedPref != null) {
                             with(sharedPref.edit()) {
-                                this.putInt("backgroundColor", R.style.Theme_Team_app_White)
+                                this.putInt("backgroundColor", R.style.color_White)
                                 this.apply()
                             }
                         }
@@ -80,25 +82,12 @@ class SettingsFragment : Fragment(){
                             recreate(activity!!)
                         }
                     }
-                    if (position==1 &&
-                        currentBackground != R.style.Theme_Team_app_Green)
+                    if (position==2 &&
+                        currentBackground != R.style.color_Green)
                     {
                         if (sharedPref != null) {
                             with(sharedPref.edit()) {
-                                this.putInt("backgroundColor", R.style.Theme_Team_app_Green)
-                                this.apply()
-                            }
-                        }
-                        if (activity != null) {
-                            recreate(activity!!)
-                        }
-                    }
-                    if (position == 2 &&
-                        currentBackground != R.style.Theme_Team_app_Yellow)
-                    {
-                        if (sharedPref != null) {
-                            with(sharedPref.edit()) {
-                                this.putInt("backgroundColor", R.style.Theme_Team_app_Yellow)
+                                this.putInt("backgroundColor", R.style.color_Green)
                                 this.apply()
                             }
                         }
@@ -107,11 +96,11 @@ class SettingsFragment : Fragment(){
                         }
                     }
                     if (position == 3 &&
-                        currentBackground != R.style.Theme_Team_app_Red)
+                        currentBackground != R.style.color_Yellow)
                     {
                         if (sharedPref != null) {
                             with(sharedPref.edit()) {
-                                this.putInt("backgroundColor", R.style.Theme_Team_app_Red)
+                                this.putInt("backgroundColor", R.style.color_Yellow)
                                 this.apply()
                             }
                         }
@@ -120,11 +109,24 @@ class SettingsFragment : Fragment(){
                         }
                     }
                     if (position == 4 &&
-                        currentBackground != R.style.Theme_Team_app_Purple)
+                        currentBackground != R.style.color_Red)
                     {
                         if (sharedPref != null) {
                             with(sharedPref.edit()) {
-                                this.putInt("backgroundColor", R.style.Theme_Team_app_Purple)
+                                this.putInt("backgroundColor", R.style.color_Red)
+                                this.apply()
+                            }
+                        }
+                        if (activity != null) {
+                            recreate(activity!!)
+                        }
+                    }
+                    if (position == 5 &&
+                        currentBackground != R.style.color_Purple)
+                    {
+                        if (sharedPref != null) {
+                            with(sharedPref.edit()) {
+                                this.putInt("backgroundColor", R.style.color_Purple)
                                 this.apply()
                             }
                         }
@@ -144,12 +146,12 @@ class SettingsFragment : Fragment(){
                     sharedViewModel.spinnerPos= parent.getItemIdAtPosition(position)
                 }
                 val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-                val currentTextSize = sharedPref?.getInt("textSize", R.style.Theme_Team_app_Small)
-                if(position==0 ) {
-                    if(currentTextSize != R.style.Theme_Team_app_Small) {
+                val currentTextSize = sharedPref?.getInt("textSize", R.style.Font_Small)
+                if(position==1 ) {
+                    if(currentTextSize != R.style.Font_Small) {
                         if (sharedPref != null) {
                             with(sharedPref.edit()) {
-                                this.putInt("textSize", R.style.Theme_Team_app_Small)
+                                this.putInt("textSize", R.style.Font_Small)
                                 this.apply()
                             }
                         }
@@ -158,11 +160,11 @@ class SettingsFragment : Fragment(){
                         }
                     }
                 }
-                if(position==1 ) {
-                    if(currentTextSize!=R.style.Theme_Team_app_Medium) {
+                if(position==2 ) {
+                    if(currentTextSize!=R.style.Font_Medium) {
                         if (sharedPref != null) {
                             with(sharedPref.edit()) {
-                                putInt("textSize", R.style.Theme_Team_app_Medium)
+                                putInt("textSize", R.style.Font_Medium)
                                 apply()
                             }
                         }
@@ -171,11 +173,11 @@ class SettingsFragment : Fragment(){
                         }
                     }
                 }
-                if(position==2 ) {
-                    if(currentTextSize!=R.style.Theme_Team_app_Large) {
+                if(position==3 ) {
+                    if(currentTextSize!=R.style.Font_Large) {
                         if (sharedPref != null) {
                             with(sharedPref.edit()) {
-                                putInt("textSize", R.style.Theme_Team_app_Large)
+                                putInt("textSize", R.style.Font_Large)
                                 apply()
                             }
                         }

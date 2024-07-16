@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        val textSize = sharedPref.getInt("textSize", R.style.Theme_Team_app_Small)
+        val textSize = sharedPref.getInt("textSize", R.style.Font_Small)
         setTheme(textSize)
-        val backgroundColor=sharedPref.getInt("backgroundColor", R.style.Theme_Team_app_White)
+        val backgroundColor=sharedPref.getInt("backgroundColor", R.style.color_White)
         setTheme(backgroundColor)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
