@@ -131,6 +131,26 @@
                     android:spinnerMode="dropdown" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- Sample Font Preview -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <TextView
+                android:id="@+id/textViewSampleFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Sample Text"
+                android:textColor="?android:textColor"
+                android:textSize="16sp" />
+        </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
