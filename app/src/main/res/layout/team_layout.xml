@@ -12,7 +12,7 @@
         android:id="@+id/textViewTeamName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:contentDescription="Edit Team"
-        android:backgroundTint="@color/custom_blue"
         android:src="@drawable/baseline_edit_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -65,7 +64,6 @@
         android:contentDescription="View Players"
         android:src="@drawable/baseline_list_24"
         android:layout_gravity="start"
-        android:backgroundTint="@color/custom_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.leanback)
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.androidx.ui.android)
+    implementation ("com.google.android.material:material:1.6.1")
     implementation(platform("com.google.firebase:firebase-bom:33.1.2")) // Firebase BoM
     implementation("com.google.firebase:firebase-functions-ktx")
     implementation("com.google.firebase:firebase-analytics")

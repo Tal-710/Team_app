@@ -25,29 +25,29 @@
                 android:layout_height="wrap_content"
                 android:maxWidth="480dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+                android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTeamName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Team Name"
+                    android:hint="@string/team_name"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/buttonSelectPhoto"
                 android:layout_width="wrap_content"
-                android:backgroundTint="@color/custom_blue"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="15dp"
-                android:text="Select Photo" />
+                android:text="@string/select_photo" />
 
             <ImageView
                 android:id="@+id/imageViewTeamLogo"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
+                android:layout_marginBottom="18dp"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop" />
@@ -64,13 +64,13 @@
                 android:layout_height="wrap_content"
                 android:maxWidth="480dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+                android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTeamEmail"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter your E-mail"
+                    android:hint="@string/enter_your_e_mail"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +78,7 @@
                 android:id="@+id/textViewPlayers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Players"
+                android:text="@string/players"
                 android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
@@ -94,8 +94,7 @@
                 android:id="@+id/buttonAddPlayer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Player"
-                android:backgroundTint="@color/custom_blue"
+                android:text="@string/add_player"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="start" />
 
@@ -106,8 +105,7 @@
         android:id="@+id/buttonSaveTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:backgroundTint="@color/custom_blue"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Team Management App</string>
+    <string name="add_player">הוסף שחקן</string>
+    <string name="settings">הגדרות:</string>
+    <string name="dark_mode">מצב נוחות:</string>
+    <string name="font_size">גודל גופן</string>
+    <string name="players">שחקנים:</string>
+    <string name="player_name">שם השחקן</string>
+    <string name="player_number">מספר השחקן</string>
+    <string name="player_position">עמדת השחקן</string>
+    <string name="player_age">גיל השחקן</string>
+    <string name="team_name">שם הקבוצה</string>
+    <string name="select_photo">בחר תמונה</string>
+    <string name="enter_your_e_mail">הכנס את כתובת המייל שלך</string>
+    <string name="save">שמור</string>
+    <string name="unsaved_changes_title">שינויים לא שמורים</string>
+    <string name="unsaved_changes_message">ביצעת מספר שינויים. את.ה בטוח.ה שתרצה לעזוב ללא שמירה?</string>
+    <string name="cancel">ביטול</string>
+    <string name="leave">עזוב</string>
+    <string name="delete_player_title">מחק שחקן</string>
+    <string name="delete_player_message">בטוח שתרצה למחוק שחקן זה?</string>
+    <string name="ok">כן</string>
+    <string name="name">שם</string>
+    <string name="number">מספר</string>
+    <string name="position">עמדה</string>
+    <string name="age">גיל</string>
+    <string name="small">קטן</string>
+    <string name="medium">בינוני</string>
+    <string name="large">גדול</string>
+    <string name="team_name_required">שם הקבוצה נדרש</string>
+    <string name="team_name_unique">שם הקבוצה חייב להיות ייחודי</string>
+    <string name="team_name_capital">שם הקבוצה חייב להתחיל באות גדולה</string>
+    <string name="team_name_length">שם הקבוצה חייב להיות באורך של עד 15 תווים</string>
+    <string name="team_logo_required">לוגו הקבוצה נדרש</string>
+    <string name="player_required">נדרש לפחות שחקן אחד</string>
+    <string name="invalid_email">כתובת דוא"ל לא תקינה</string>
+    <string name="all_fields_required">כל השדות חייבים להיות מלאים.</string>
+    <string name="name_only_letters">השם יכול להכיל רק אותיות.</string>
+    <string name="player_name_capital">שם השחקן חייב להתחיל באות גדולה</string>
+    <string name="name_length">השם לא יכול להיות ארוך מ-20 תווים.</string>
+    <string name="number_range">המספר חייב להיות בין 1 ל-99.</string>
+    <string name="number_unique">מספר השחקן חייב להיות ייחודי.</string>
+    <string name="position_length">העמדה חייבת להיות בדיוק 2 אותיות.</string>
+    <string name="age_range">הגיל חייב להיות בין 0 ל-99.</string>
+    <string name="english">English</string>
+    <string name="hebrew">עברית</string>
+    <string name="change_language">שנה שפה</string>
+    <string name="white">לבן</string>
+    <string name="black">שחור</string>
+    <string name="background_color">צבע רקע</string>
+    <string name="green">ירוק</string>
+    <string name="yellow">צהוב</string>
+    <string name="red">אדום</string>
+    <string name="purple">סגול</string>
+
+
+
+    <string-array name="text_Size_Spinner">
+        <item>@string/small</item>
+        <item>@string/medium</item>
+        <item>@string/large</item>
+    </string-array>
+
+    <string-array name="background_Color_Spinner">
+    <item>@string/white</item>
+    <item>@string/green</item>
+    <item>@string/yellow</item>
+    <item>@string/red</item>
+    <item>@string/purple</item>
+    </string-array>
+</resources>

@@ -15,8 +15,12 @@ import kotlinx.coroutines.launch
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
+    var darkMode = false
+    var spinnerPos : Long = 0
+
     private val playerRepository = PlayerRepository(application)
     private val teamRepository = TeamRepository(application)
+
 
     val playerName = MutableLiveData<String>()
     val playerNumber = MutableLiveData<String>()
@@ -119,6 +123,11 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
             loadAllTeams()
         }
     }
+
+    fun isTeamNameUnique(teamName: String): Boolean {
+        return _teamList.value?.none { it.team.teamName == teamName } == true
+    }
+
 
     fun setEditTeam(teamWithPlayers: TeamWithPlayers) {
         _editTeam.value = teamWithPlayers

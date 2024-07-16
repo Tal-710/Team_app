@@ -1,0 +1,14 @@
+<resources>
+    <color name="text_Color_1">#FFFFFF</color>
+    <color name="btn_Text_Color_1">#808080</color>
+    <color name="background_Color_Default">#FFFFFF</color>
+    <color name="background_Color_Red">#800000</color>
+    <color name="background_Color_Blue">#000066</color>
+    <color name="background_Color_Green">#003300</color>
+    <color name="background_Color_Yellow">#996600</color>
+    <color name="background_Color_Default_Mode_color">#000000</color>
+    <color name="background_Color_Purple">#660033</color>
+    <color name="button_Text_Background_Color">#FFFFFF</color>
+    <color name="button_Background_Color">#000000</color><!-- Darker background for the text input -->
+</resources>
+

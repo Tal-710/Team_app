@@ -93,7 +93,7 @@ class AddEditTeamFragment : Fragment() {
                 sharedViewModel.editTeam.value?.let { teamWithPlayers ->
                     val team = teamWithPlayers.team
                     binding.editTextTeamName.setText(team.teamName)
-                    team.teamLogoUri?.let {
+                    team.teamLogoUri.let {
                         binding.imageViewTeamLogo.setImageURI(Uri.parse(it))
                     }
                     binding.editTextTeamEmail.setText(team.teamEmail)
@@ -214,33 +214,42 @@ class AddEditTeamFragment : Fragment() {
         val teamEmail = binding.editTextTeamEmail.text.toString()
 
         if (teamName.isEmpty()) {
-            showToast("Team name is required")
+            showToast(getString(R.string.team_name_required))
+            return
+        }
+        if (!sharedViewModel.isTeamNameUnique(teamName)) {
+            showToast(getString(R.string.team_name_unique))
             return
         }
 
-        if (!teamName[0].isUpperCase()) {
-            showToast("Team name must start with a capital letter")
+        if (isEnglish(teamName) && !teamName[0].isUpperCase()) {
+            showToast(getString(R.string.team_name_capital))
             return
         }
 
         if (teamName.length > 15) {
-            showToast("Team name at most 15 characters long.")
+            showToast(getString(R.string.team_name_length))
             return
         }
 
         if (teamLogoUri == null) {
-            showToast("Team logo is required")
+            showToast(getString(R.string.team_logo_required))
             return
         }
 
         if (players.isNullOrEmpty()) {
-            showToast("At least one player is required")
+            showToast(getString(R.string.player_required))
             return
         }
 
         if (!isValidEmail(teamEmail)) {
-            showToast("Invalid email address")
+            showToast(getString(R.string.invalid_email))
             return
+        }
+
+        // Disable email editing if not in edit mode
+        if (!sharedViewModel.isEditMode.value!!) {
+            binding.editTextTeamEmail.isEnabled = false
         }
 
         val team = Team(
@@ -252,9 +261,12 @@ class AddEditTeamFragment : Fragment() {
         if (sharedViewModel.isEditMode.value == true) {
             team.teamId = sharedViewModel.editTeam.value?.team?.teamId
             sharedViewModel.updateTeam(team)
+            if (hasChanges) {
+                sendMailToUser(teamName, teamEmail, true)
+            }
         } else {
             sharedViewModel.saveTeam(team)
-            sendMailToUser(teamName, teamEmail)
+            sendMailToUser(teamName, teamEmail, false)
         }
 
         clearInputFields()
@@ -262,18 +274,19 @@ class AddEditTeamFragment : Fragment() {
         findNavController().navigate(R.id.action_addEditTeamFragment2_to_allTeamsFragment)
     }
 
+
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     private fun showUnsavedChangesDialog() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Unsaved Changes")
-            .setMessage("You have unsaved changes. Are you sure you want to leave without saving?")
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setTitle(getString(R.string.unsaved_changes_title))
+            .setMessage(getString(R.string.unsaved_changes_message))
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton("Leave") { dialog, _ ->
+            .setPositiveButton(getString(R.string.leave)) { dialog, _ ->
                 dialog.dismiss()
                 findNavController().navigateUp()
             }
@@ -295,37 +308,24 @@ class AddEditTeamFragment : Fragment() {
 
     private fun showDeleteConfirmationDialog(position: Int) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete Player")
-            .setMessage("Are you sure you want to delete this player?")
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setTitle(getString(R.string.delete_player_title))
+            .setMessage(getString(R.string.delete_player_message))
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
                 binding.recyclerViewPlayers.adapter!!.notifyItemChanged(position)
             }
-            .setPositiveButton("OK") { dialog, _ ->
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                 sharedViewModel.removePlayer(position)
                 binding.recyclerViewPlayers.adapter!!.notifyItemRemoved(position)
                 dialog.dismiss()
             }.show()
     }
 
-    private fun sendMailToAdmin(teamName: String) {
-        val data = hashMapOf(
-            "teamName" to teamName
-        )
-        functions.getHttpsCallable("sendMail")
-            .call(data)
-            .addOnSuccessListener {
-                Log.d(TAG, "Email sent successfully to admin")
-            }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "Error sending email to admin", e)
-            }
-    }
-
-    private fun sendMailToUser(teamName: String, userEmail: String) {
+    private fun sendMailToUser(teamName: String, userEmail: String, isEditMode: Boolean) {
         val data = hashMapOf(
             "teamName" to teamName,
-            "userEmail" to userEmail
+            "userEmail" to userEmail,
+            "isEditMode" to isEditMode
         )
         functions.getHttpsCallable("sendMailToUser")
             .call(data)
@@ -334,14 +334,11 @@ class AddEditTeamFragment : Fragment() {
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error sending email to user", e)
-                showFailureToast()
             }
     }
 
-    private fun showFailureToast() {
-        view?.let { view ->
-            Toast.makeText(view.context, "Failed to send email to user. Please check the email address and try again.", Toast.LENGTH_SHORT).show()
-        }
+    private fun isEnglish(text: String): Boolean {
+        return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
     }
 
     override fun onDestroyView() {

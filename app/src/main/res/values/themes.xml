@@ -1,9 +1,49 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Team_app" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.Team_app" parent="Theme.Material3.DayNight.NoActionBar">
+        <!--this is light theme file,add here styles that you want to be in light mode-->
+        <!-- for example <item name="colorPrimary">@color/Text_Color_1</item> the color will
+        the same as the one in color light-->
+        <item name="android:textColor">@color/text_Color_1</item>
+        <item name="android:buttonStyle">@style/Widget.App.Button</item>
     </style>
 
-    <style name="Theme.Team_app" parent="Base.Theme.Team_app" />
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/button_Background_Color</item>
+        <item name="colorOnPrimary">@color/button_Text_Background_Color</item>
+    </style>
+
+    <style name="Theme_Team_app_Small" parent="Theme.Team_app">
+        <item name="android:textSize">12sp</item>
+        <item name="android:keyTextSize">12sp</item>
+    </style>
+
+    <style name="Theme_Team_app_Medium" parent="Theme.Team_app">
+        <item name="android:textSize">16sp</item>
+        <item name="android:keyTextSize">16sp</item>
+    </style>
+
+    <style name="Theme_Team_app_Large" parent="Theme.Team_app">
+        <item name="android:textSize">20sp</item>
+        <item name="android:keyTextSize">20sp</item>
+    </style>
+    <style name="color_White" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Default_Mode_color</item>
+    </style>
+    <style name="color_Green" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Green</item>
+    </style>
+    <style name="color_Yellow" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Yellow</item>
+    </style>
+    <style name="color_Red" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Red</item>
+    </style>
+    <style name="color_Purple" parent="Theme.Team_app">
+        <item name="android:background">@color/background_Color_Purple</item>
+    </style>
 </resources>

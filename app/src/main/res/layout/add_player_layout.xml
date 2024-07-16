@@ -17,28 +17,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPlayerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Player Name"
+                android:hint="@string/player_name"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPlayerNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Player Number"
+                android:hint="@string/player_number"
                 android:inputType="number"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -47,13 +48,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPlayerPosition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Player Position"
+                android:hint="@string/player_position"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,12 +63,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined">
+            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPlayerAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Player age"
+                android:hint="@string/player_age"
                 android:inputType="number"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -76,8 +80,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:backgroundTint="@color/custom_blue"
-            android:text="Add Player" />
+            android:text="@string/add_player"
+             />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

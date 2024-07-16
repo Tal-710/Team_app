@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
-        android:text="Player Name" />
+        android:text="@string/player_name" />
 
     <TextView
         android:id="@+id/textViewPlayerNumber"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         app:layout_constraintStart_toEndOf="@+id/textViewPlayerName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

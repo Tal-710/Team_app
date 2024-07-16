@@ -92,47 +92,57 @@ class AddPlayerFragment : Fragment() {
             }
         }
     }
+    private fun isEnglish(text: String): Boolean {
+        return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
+    }
+
 
     private fun validateInputs(name: String, number: String, position: String, age: String): Boolean {
         if (name.isBlank() || number.isBlank() || position.isBlank() || age.isBlank()) {
-            showToast("All fields must be filled out.")
+            showToast(getString(R.string.all_fields_required))
             return false
         }
 
         if (!name.all { it.isLetter() }) {
-            showToast("Name can only contain letters.")
+            showToast(getString(R.string.name_only_letters))
+            return false
+        }
+
+        if (isEnglish(name) && !name[0].isUpperCase()) {
+            showToast(getString(R.string.player_name_capital))
             return false
         }
 
         if (name.length > 20) {
-            showToast("Name cannot be longer than 20 characters.")
+            showToast(getString(R.string.name_length))
             return false
         }
 
         val playerNumber = number.toIntOrNull()
         if (playerNumber == null || playerNumber !in 1..99) {
-            showToast("Number must be between 1 and 99.")
+            showToast(getString(R.string.number_range))
             return false
         }
 
         if (sharedViewModel.playerList.value?.any { it.playerNumber == playerNumber } == true) {
-            showToast("Player number must be unique.")
+            showToast(getString(R.string.number_unique))
             return false
         }
 
         if (position.length != 2 || !position.all { it.isLetter() }) {
-            showToast("Position must be exactly 2 letters.")
+            showToast(getString(R.string.position_length))
             return false
         }
 
         val playerAge = age.toIntOrNull()
         if (playerAge == null || playerAge !in 0..99) {
-            showToast("Age must be between 16 and 99.")
+            showToast(getString(R.string.age_range))
             return false
         }
 
         return true
     }
+
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

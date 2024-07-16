@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="text_Size_Spinner">
+        <item>@string/small</item>
+        <item>@string/medium</item>
+        <item>@string/large</item>
+    </string-array>
+</resources>

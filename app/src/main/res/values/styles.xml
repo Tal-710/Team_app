@@ -1,6 +1,6 @@
 <resources>
     <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
-        <item name="colorControlActivated">@color/custom_blue</item>
-        <item name="colorPrimary">@color/custom_blue</item>
+        <item name="colorControlActivated">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
     </style>
 </resources>

@@ -2,6 +2,7 @@ package com.example.team_app.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +20,10 @@ import com.example.team_app.R
 import com.example.team_app.data.model.TeamWithPlayers
 import com.example.team_app.databinding.AllTeamLayoutBinding
 import com.example.team_app.ui.adapter.TeamAdapter
+import com.example.team_app.viewmodel.SettingsViewModel
 import com.example.team_app.viewmodel.SharedViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.FirebaseApp
 import com.google.firebase.functions.FirebaseFunctions
 
 class AllTeamsFragment : Fragment() {
@@ -30,6 +34,7 @@ class AllTeamsFragment : Fragment() {
     private lateinit var teamAdapter: TeamAdapter
     private lateinit var gestureDetector: GestureDetector
     private lateinit var functions: FirebaseFunctions
+    private lateinit var settingsViewModel: SettingsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +42,12 @@ class AllTeamsFragment : Fragment() {
     ): View {
         _binding = AllTeamLayoutBinding.inflate(inflater, container, false)
         return binding.root
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        context?.let { FirebaseApp.initializeApp(it) }
+        functions = FirebaseFunctions.getInstance()
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -104,9 +115,24 @@ class AllTeamsFragment : Fragment() {
                 dialog.dismiss()
             }
             .setPositiveButton("OK") { dialog, _ ->
+                val teamName = team.team.teamName
+                val teamEmail = team.team.teamEmail
+                sendDeleteMailToUser(teamName, teamEmail)
                 sharedViewModel.deleteTeam(team.team)
                 dialog.dismiss()
             }.show()
+    }
+
+    private fun sendDeleteMailToUser(teamName: String, userEmail: String) {
+        val data = hashMapOf(
+            "teamName" to teamName,
+            "userEmail" to userEmail
+        )
+        functions.getHttpsCallable("sendDeleteMailToUser")
+            .call(data)
+            .addOnFailureListener { e ->
+                Log.e("AllTeamsFragment", "Error sending email to user", e)
+            }
     }
 
     override fun onDestroyView() {
