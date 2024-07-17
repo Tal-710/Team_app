@@ -40,6 +40,7 @@
 
             <Button
                 android:id="@+id/buttonSelectPhoto"
+                style="?attr/buttonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -60,6 +61,7 @@
 
             <Button
                 android:id="@+id/buttonAddTeamContact"
+                style="?attr/buttonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -116,6 +118,7 @@
                 android:nestedScrollingEnabled="false"/>
             <Button
                 android:id="@+id/buttonAddPlayer"
+                style="?attr/buttonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_player"
@@ -127,6 +130,7 @@
 
     <Button
         android:id="@+id/buttonSaveTeam"
+        style="?attr/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"

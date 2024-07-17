@@ -4,9 +4,9 @@
         <!--this is light theme file,add here styles that you want to be in light mode-->
         <!-- for example <item name="colorPrimary">@color/Text_Color_1</item> the color will
         the same as the one in color light-->
-        <item name="android:textColor">@color/text_Color_1</item>
         <item name="android:buttonStyle">@style/Widget.App.Button</item>
         <item name="android:textColorLink">@color/buttonIconTint</item>
+        <item name="android:actionButtonStyle">@style/Widget.AppCompat.floatingActionButton</item>
     </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
@@ -17,6 +17,16 @@
         <item name="colorPrimary">@color/button_Background_Color</item>
         <item name="colorOnPrimary">@color/button_Text_Background_Color</item>
     </style>
+
+    <style name="Widget.AppCompat.floatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.ImageButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.ImageButton" parent="">
+        <item name="background">@color/button_Background_Color</item>
+        <item name="tint">@color/button_Text_Background_Color</item>
+    </style>
+
 
     <style name="Theme_Team_app_Small" parent="Theme.Team_app">
         <item name="android:textSize">12sp</item>
@@ -47,4 +57,10 @@
     <style name="color_Purple" parent="Theme.Team_app">
         <item name="android:background">@color/background_Color_Purple</item>
     </style>
+
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorControlActivated">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
+    </style>
+
 </resources>

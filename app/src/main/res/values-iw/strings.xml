@@ -57,20 +57,18 @@
     <string name="team_contact_required">דרוש איש קשר </string>
     <string name="add_contact">הוסף איש קשר</string>
     <string name="no_contact_selected">איש קשר לא נבחר</string>
-
-
-
     <string-array name="text_Size_Spinner">
-        <item>@string/small</item>
-        <item>@string/medium</item>
-        <item>@string/large</item>
+        <item>Select Text Size</item>
+        <item>קטן</item>
+        <item>בינוני</item>
+        <item>גדול</item>
     </string-array>
-
     <string-array name="background_Color_Spinner">
-    <item>@string/white</item>
-    <item>@string/green</item>
-    <item>@string/yellow</item>
-    <item>@string/red</item>
-    <item>@string/purple</item>
+        <item>בחר רקע</item>
+        <item>שחור</item>
+        <item>ירוק</item>
+        <item>צהוב</item>
+        <item>אדום</item>
+        <item>סגול</item>
     </string-array>
 </resources>
