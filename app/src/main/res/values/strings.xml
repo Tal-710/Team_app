@@ -27,6 +27,7 @@
     <string name="small">Small</string>
     <string name="medium">Medium</string>
     <string name="large">Large</string>
+    <string name="team_contact_required">Team contact required</string>
     <string name="team_name_required">Team name is required</string>
     <string name="team_name_unique">Team name must be unique.</string>
     <string name="team_name_capital">Team name must start with a capital letter</string>
@@ -52,6 +53,8 @@
     <string name="red">Red</string>
     <string name="purple">Purple</string>
     <string name="background_color">Background color</string>
+    <string name="team_logo">Team_logo</string>
+    <string name="add_contact">Add Contact</string>
 
 
     <string-array name="text_Size_Spinner">

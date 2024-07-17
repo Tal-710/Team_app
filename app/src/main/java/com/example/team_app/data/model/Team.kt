@@ -9,5 +9,7 @@ data class Team(
     @PrimaryKey(autoGenerate = true) var teamId: Long? = null,
     @ColumnInfo(name = "teamName") val teamName: String,
     @ColumnInfo(name = "teamLogoUri") val teamLogoUri: String,
-    @ColumnInfo(name = "teamEmail") val teamEmail: String
+    @ColumnInfo(name = "teamEmail") val teamEmail: String,
+    @ColumnInfo(name = "teamContactNumber") val teamContactNumber: String
+
 )

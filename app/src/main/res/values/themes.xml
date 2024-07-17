@@ -6,6 +6,7 @@
         the same as the one in color light-->
         <item name="android:textColor">@color/text_Color_1</item>
         <item name="android:buttonStyle">@style/Widget.App.Button</item>
+        <item name="android:textColorLink">@color/buttonIconTint</item>
     </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">

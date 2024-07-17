@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     var darkMode = false
-    var spinnerPos : Long = 0
+    var spinnerPos: Long = 0
 
     private val playerRepository = PlayerRepository(application)
     private val teamRepository = TeamRepository(application)
@@ -32,6 +32,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val teamEmail = MutableLiveData<String>()
 
     private val _editTeam = MutableLiveData<TeamWithPlayers?>()
+
+    private val _teamContactNumber = MutableLiveData<String>()
+    val teamContactNumber: LiveData<String> get() = _teamContactNumber
     val editTeam: LiveData<TeamWithPlayers?> get() = _editTeam
 
     private val _playerList = MutableLiveData<List<Player>>()
@@ -48,17 +51,17 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private val _isEditMode = MutableLiveData<Boolean>()
     val isEditMode: LiveData<Boolean> get() = _isEditMode
 
-//    private val _contactNumber = MutableLiveData<String>()
-//    val contactNumber: LiveData<String> get() = _contactNumber
+    private val _contactNumber = MutableLiveData<String>()
+    val contactNumber: LiveData<String> get() = _contactNumber
 
     init {
         loadAllTeams()
         resetEditMode()
     }
 
-//    fun setContactNumber(number: String) {
-//        _contactNumber.value = number
-//    }
+    fun setContactNumber(number: String) {
+        _teamContactNumber.value = number
+    }
 
     fun clearPlayerList() {
         tempPlayerList.clear()
@@ -128,7 +131,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         return _teamList.value?.none { it.team.teamName == teamName } == true
     }
 
-
     fun setEditTeam(teamWithPlayers: TeamWithPlayers) {
         _editTeam.value = teamWithPlayers
         teamName.value = teamWithPlayers.team.teamName
@@ -137,6 +139,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         tempPlayerList.addAll(teamWithPlayers.players)
         _playerList.value = tempPlayerList
         _isEditMode.value = true
+        _teamContactNumber.value = teamWithPlayers.team.teamContactNumber
     }
 
     fun resetEditMode() {
@@ -144,6 +147,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         teamName.value = ""
         teamLogoUri.value = null
         _isEditMode.value = false
-        teamEmail.value= ""
+        teamEmail.value = ""
+        _teamContactNumber.value = ""
     }
 }

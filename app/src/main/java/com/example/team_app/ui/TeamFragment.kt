@@ -30,17 +30,15 @@ class TeamFragment : Fragment() {
     private var _binding: TeamLayoutBinding? = null
     private val binding get() = _binding!!
     private val sharedViewModel: SharedViewModel by activityViewModels()
-//    private val callPermissionLauncher: ActivityResultLauncher<String> = registerForActivityResult(
-//        ActivityResultContracts.RequestPermission()
-//    ) { isGranted ->
-//        if (isGranted) {
-//            call()
-//        } else {
-//            Toast.makeText(requireContext(), "Can't make call without permission", Toast.LENGTH_LONG).show()
-//        }
-//    }
-
-
+    private val callPermissionLauncher: ActivityResultLauncher<String> = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            call()
+        } else {
+            Toast.makeText(requireContext(), "Can't make call without permission", Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,12 +64,11 @@ class TeamFragment : Fragment() {
                 sharedViewModel.setEditTeam(teamWithPlayers)
                 sharedViewModel.setEditMode()
                 findNavController().navigate(R.id.action_teamFragment_to_addEditTeamFragment2)
-
-
             }
-//            binding.buttonCallContact.setOnClickListener {
-//                callPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
-//            }
+
+            binding.buttonCallContact.setOnClickListener {
+                callPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
+            }
         })
     }
 
@@ -129,19 +126,17 @@ class TeamFragment : Fragment() {
         dialog.show()
     }
 
-
-//    private fun call() {
-//        val phone = sharedViewModel.contactNumber.value
-//        if (!phone.isNullOrEmpty()) {
-//            val intent = Intent(Intent.ACTION_CALL).apply {
-//                data = Uri.parse("tel:$phone")
-//            }
-//            startActivity(intent)
-//        } else {
-//            Toast.makeText(requireContext(), "No contact number available", Toast.LENGTH_LONG).show()
-//        }
-//    }
-
+    private fun call() {
+        val phone = sharedViewModel.chosenTeam.value?.team?.teamContactNumber
+        if (!phone.isNullOrEmpty()) {
+            val intent = Intent(Intent.ACTION_CALL).apply {
+                data = Uri.parse("tel:$phone")
+            }
+            startActivity(intent)
+        } else {
+            Toast.makeText(requireContext(), "No contact number available", Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

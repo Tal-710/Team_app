@@ -53,6 +53,9 @@
     <string name="yellow">צהוב</string>
     <string name="red">אדום</string>
     <string name="purple">סגול</string>
+    <string name="team_logo">לוגו הקבוצה</string>
+    <string name="team_contact_required">דרוש איש קשר </string>
+    <string name="add_contact">הוסף איש קשר</string>
 
 
 

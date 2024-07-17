@@ -26,12 +26,15 @@
                 android:maxWidth="480dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTeamName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/team_name"
-                    android:textSize="20sp" />
+                    android:textColorHint="#78909C"
+                    android:textSize="20sp"
+                    tools:ignore="VisualLintTextFieldSize" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -47,31 +50,51 @@
                 android:id="@+id/imageViewTeamLogo"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_marginBottom="18dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="18dp"
+                android:contentDescription="@string/team_logo"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
-                android:scaleType="centerCrop" />
-<!--            <Button-->
-<!--                android:id="@+id/buttonAddTeamContact"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="15dp"-->
-<!--                android:layout_gravity="start"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:text="Add Contact" />-->
+                tools:ignore="ImageContrastCheck" />
+
+            <Button
+                android:id="@+id/buttonAddTeamContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="start"
+                android:layout_marginBottom="10dp"
+                android:text="@string/add_contact" />
+
+            <!-- New TextView for displaying contact number -->
+            <TextView
+                android:id="@+id/textViewTeamContactNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_border"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:text="No contact selected"
+                tools:ignore="MissingConstraints" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxWidth="480dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTeamEmail"
-                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:hint="@string/enter_your_e_mail"
-                    android:textSize="20sp" />
+                    android:textColorHint="#78909C"
+                    android:textSize="20sp"
+                    tools:ignore="VisualLintTextFieldSize" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
