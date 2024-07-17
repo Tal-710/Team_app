@@ -55,6 +55,7 @@
     <string name="background_color">Background color</string>
     <string name="team_logo">Team_logo</string>
     <string name="add_contact">Add Contact</string>
+    <string name="no_contact_selected">No contact selected</string>
 
 
     <string-array name="text_Size_Spinner">

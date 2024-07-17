@@ -21,15 +21,13 @@ exports.sendMailToUser = functions.https.onCall(async (data, context) => {
   const teamName = data.teamName;
   const userEmail = data.userEmail;
   const isEditMode = data.isEditMode;
-  const subject = isEditMode ?
-    `Your team ${teamName} has been updated` :
-    `Congratulations on creating your new team: ${teamName}`;
-  const text = isEditMode ?
-    `Dear User,\n
-    Your team, ${teamName}, has been successfully updated in the ${APP_NAME}.
-    \n\nBest Regards,\nThe Team Management App Team` :
-    `Dear User,\n\nCongratulations on creating your new team, ${teamName}, in 
-    the ${APP_NAME}! \n\nBest Regards,\nThe Team Management App Team.`;
+  const subject = isEditMode ? `Your team ${teamName} has been updated`:
+   `Congratulations on creating your new team: ${teamName}`;
+  const text = isEditMode ? `Dear User,\n\nYour team, ${teamName},
+has been successfully updated in the ${APP_NAME}.\n
+   \nBest Regards,\nThe Team Management App Team`:
+   `Dear User,\n\nCongratulations on creating your new team, ${teamName}, in
+    the ${APP_NAME}!\n\nBest Regards,\nThe Team Management App Team.`;
 
   const mailOptions = {
     from: `${APP_NAME} <${gmailEmail}>`,
@@ -52,10 +50,9 @@ exports.sendDeleteMailToUser = functions.https.onCall(async (data, context) => {
   const teamName = data.teamName;
   const userEmail = data.userEmail;
   const subject = `Your team ${teamName} has been deleted`;
-  const text = `Dear User,\n\n
-  
-  Your team, ${teamName}, has been successfully deleted from the ${APP_NAME}.
-  \n\nBest Regards,\nThe Team Management App Team`;
+  const text = `Dear User,\n\nYour team, ${teamName}, 
+  has been successfully deleted from the ${APP_NAME}.
+  \n\nBest Regards,\nThe Team Management App Team.`;
 
   const mailOptions = {
     from: `${APP_NAME} <${gmailEmail}>`,

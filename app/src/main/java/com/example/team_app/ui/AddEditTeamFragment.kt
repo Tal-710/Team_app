@@ -74,7 +74,6 @@ class AddEditTeamFragment : Fragment() {
                         sharedViewModel.setContactNumber(contactNumber)
                         Toast.makeText(requireContext(), "Contact chosen: $contactNumber", Toast.LENGTH_SHORT).show()
                     } else {
-                        Log.d(TAG, "No contact number found")
                         Toast.makeText(requireContext(), "No contact number found", Toast.LENGTH_SHORT).show()
                     }
                     it.close()
@@ -97,7 +96,7 @@ class AddEditTeamFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         this.context?.let { FirebaseApp.initializeApp(it) }
         _binding = AddEditTeamLayoutBinding.inflate(inflater, container, false)
         binding.buttonSelectPhoto.setOnClickListener { pickImageLauncher.launch(arrayOf("image/*")) }
@@ -132,7 +131,7 @@ class AddEditTeamFragment : Fragment() {
                 sharedViewModel.editTeam.value?.let { teamWithPlayers ->
                     val team = teamWithPlayers.team
                     binding.editTextTeamName.setText(team.teamName)
-                    team.teamLogoUri?.let {
+                    team.teamLogoUri.let {
                         binding.imageViewTeamLogo.setImageURI(Uri.parse(it))
                     }
                     binding.editTextTeamEmail.setText(team.teamEmail)
@@ -145,6 +144,7 @@ class AddEditTeamFragment : Fragment() {
                     initialPlayerList = teamWithPlayers.players.map { it.playerName }
                     initialTeamContactNumber = team.teamContactNumber
                     binding.textViewTeamContactNumber.text = initialTeamContactNumber
+                    hasChanges = false
                 }
             } else {
                 // New team creation mode
@@ -153,6 +153,7 @@ class AddEditTeamFragment : Fragment() {
                 initialPlayerList = null
                 initialTeamContactNumber = null
                 binding.editTextTeamEmail.isEnabled = true // Enable editing in new team creation mode
+                hasChanges = false
             }
         }
 
@@ -247,16 +248,22 @@ class AddEditTeamFragment : Fragment() {
         val currentTeamLogoUri = sharedViewModel.teamLogoUri.value
         val currentPlayerList = sharedViewModel.playerList.value?.map { it.playerName }
         val currentTeamContactNumber = sharedViewModel.teamContactNumber.value
+        val noContactSelected = getString(R.string.no_contact_selected)
 
         hasChanges = when {
-            sharedViewModel.isEditMode.value == true -> (currentTeamName != initialTeamName
-                    || currentTeamLogoUri != initialTeamLogoUri
-                    || currentPlayerList != initialPlayerList
-                    || currentTeamContactNumber != initialTeamContactNumber)
-            else -> (currentTeamName.isNotEmpty()
-                    || currentTeamLogoUri != null
-                    || currentPlayerList?.isNotEmpty() == true
-                    || currentTeamContactNumber?.isNotEmpty() == true)
+            sharedViewModel.isEditMode.value == true -> (
+                    currentTeamName != initialTeamName ||
+                            currentTeamLogoUri != initialTeamLogoUri ||
+                            currentPlayerList != initialPlayerList ||
+                            (initialTeamContactNumber == getString(R.string.no_contact_selected) && currentTeamContactNumber != "") ||
+                            (initialTeamContactNumber != getString(R.string.no_contact_selected) && currentTeamContactNumber != initialTeamContactNumber)
+                    )
+            else -> (
+                    currentTeamName.isNotEmpty() ||
+                            currentTeamLogoUri != null ||
+                            currentPlayerList?.isNotEmpty() == true ||
+                            currentTeamContactNumber != noContactSelected
+                    )
         }
     }
 
@@ -271,6 +278,7 @@ class AddEditTeamFragment : Fragment() {
             showToast(getString(R.string.team_name_required))
             return
         }
+
         if (!sharedViewModel.isEditMode.value!! || initialTeamName != teamName) {
             if (!sharedViewModel.isTeamNameUnique(teamName)) {
                 showToast(getString(R.string.team_name_unique))
@@ -278,13 +286,12 @@ class AddEditTeamFragment : Fragment() {
             }
         }
 
-
         if (isEnglish(teamName) && !teamName[0].isUpperCase()) {
             showToast(getString(R.string.team_name_capital))
             return
         }
 
-        if (teamName.length > 16) {
+        if (teamName.length > 15) {
             showToast(getString(R.string.team_name_length))
             return
         }
@@ -304,11 +311,10 @@ class AddEditTeamFragment : Fragment() {
             return
         }
 
-        if (teamContactNumber == "No contact selected"){
+        if (teamContactNumber == getString(R.string.no_contact_selected)) {
             showToast(getString(R.string.team_contact_required))
             return
         }
-
 
         // Disable email editing if not in edit mode
         if (!sharedViewModel.isEditMode.value!!) {
@@ -404,6 +410,11 @@ class AddEditTeamFragment : Fragment() {
     private fun isEnglish(text: String): Boolean {
         return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
     }
+
+
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

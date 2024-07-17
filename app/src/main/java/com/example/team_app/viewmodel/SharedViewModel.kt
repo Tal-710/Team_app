@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.team_app.R
 import com.example.team_app.data.model.Player
 import com.example.team_app.data.model.Team
 import com.example.team_app.data.model.TeamWithPlayers
@@ -145,6 +146,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         teamLogoUri.value = null
         _isEditMode.value = false
         teamEmail.value = ""
-        _teamContactNumber.value = "No contact selected"
+        _teamContactNumber.value = getApplication<Application>().getString(R.string.no_contact_selected)
     }
 }
