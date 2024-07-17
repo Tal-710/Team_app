@@ -51,9 +51,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private val _isEditMode = MutableLiveData<Boolean>()
     val isEditMode: LiveData<Boolean> get() = _isEditMode
 
-    private val _contactNumber = MutableLiveData<String>()
-    val contactNumber: LiveData<String> get() = _contactNumber
-
     init {
         loadAllTeams()
         resetEditMode()
@@ -148,6 +145,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         teamLogoUri.value = null
         _isEditMode.value = false
         teamEmail.value = ""
-        _teamContactNumber.value = ""
+        _teamContactNumber.value = "No contact selected"
     }
 }

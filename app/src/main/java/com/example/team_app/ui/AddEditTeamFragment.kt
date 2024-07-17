@@ -304,10 +304,11 @@ class AddEditTeamFragment : Fragment() {
             return
         }
 
-        if (teamContactNumber.isEmpty()) {
+        if (teamContactNumber == "No contact selected"){
             showToast(getString(R.string.team_contact_required))
             return
         }
+
 
         // Disable email editing if not in edit mode
         if (!sharedViewModel.isEditMode.value!!) {

@@ -9,6 +9,7 @@
     <color name="background_Color_Default_Mode_color">#000000</color>
     <color name="background_Color_Purple">#660033</color>
     <color name="button_Text_Background_Color">#FFFFFF</color>
+    <color name="grey">#7D8083</color>
     <color name="button_Background_Color">#000000</color><!-- Darker background for the text input -->
 </resources>
 
