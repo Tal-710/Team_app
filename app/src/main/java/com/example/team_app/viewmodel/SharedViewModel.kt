@@ -1,7 +1,9 @@
 package com.example.team_app.viewmodel
 
 import android.app.Application
+import android.content.Intent
 import android.net.Uri
+import android.speech.RecognizerIntent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,6 +15,7 @@ import com.example.team_app.data.model.TeamWithPlayers
 import com.example.team_app.data.repository.PlayerRepository
 import com.example.team_app.data.repository.TeamRepository
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,6 +26,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     private val playerRepository = PlayerRepository(application)
     private val teamRepository = TeamRepository(application)
+
+    private val _speechResult = MutableLiveData<String>()
+    val speechResult: LiveData<String> get() = _speechResult
 
 
     val playerName = MutableLiveData<String>()
@@ -57,6 +63,17 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     init {
         loadAllTeams()
         resetEditMode()
+    }
+
+    fun onSpeechResult(result: String) {
+        _speechResult.value = result
+    }
+
+    fun getSpeechRecognizerIntent(): Intent {
+        return Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        }
     }
 
     fun setContactNumber(number: String) {

@@ -1,6 +1,7 @@
 package com.example.team_app.ui
 
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -23,6 +24,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -99,6 +101,15 @@ class AddEditTeamFragment : Fragment() {
             sharedViewModel.teamLogoUri.value = it
             checkForChanges()
         }
+    private val speechRecognizerLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult((ActivityResultContracts.StartActivityForResult())) {result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val spokenText =
+                    result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
+                Log.d("AddEditTeamFragment", "Received spoken text: $spokenText")
+                binding.editTextTeamName.text = Editable.Factory.getInstance().newEditable(spokenText)
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -106,15 +117,6 @@ class AddEditTeamFragment : Fragment() {
     ): View {
         this.context?.let { FirebaseApp.initializeApp(it) }
         _binding = AddEditTeamLayoutBinding.inflate(inflater, container, false)
-        observer = MyLifecycleObserver(
-            requireActivity().activityResultRegistry,
-            requireActivity()
-        ) { spokenText ->
-            Log.d("AddEditTeamFragment", "Received spoken text: $spokenText")
-            binding.editTextTeamName.text = Editable.Factory.getInstance().newEditable(spokenText)
-        }
-        lifecycle.addObserver(observer as LifecycleObserver)
-
         binding.buttonSelectPhoto.setOnClickListener { pickImageLauncher.launch(arrayOf("image/*")) }
         binding.buttonAddTeamContact.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
@@ -127,6 +129,28 @@ class AddEditTeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         functions = FirebaseFunctions.getInstance()
+
+        // Initialize observer
+        observer = MyLifecycleObserver(
+            requireActivity().activityResultRegistry,
+            requireContext())
+
+
+        lifecycle.addObserver(observer)
+
+
+        binding.speechBtn.setOnClickListener {
+            observer.checkPermission(Manifest.permission.RECORD_AUDIO) {
+                val intent = sharedViewModel.getSpeechRecognizerIntent()
+                speechRecognizerLauncher.launch(intent)
+            }
+        }
+
+
+
+        sharedViewModel.speechResult.observe(viewLifecycleOwner) { result ->
+            binding.editTextTeamName.text = Editable.Factory.getInstance().newEditable(result)
+        }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (hasChanges) {
@@ -215,9 +239,6 @@ class AddEditTeamFragment : Fragment() {
         binding.buttonSaveTeam.setOnClickListener {
             saveTeam()
 
-        }
-        binding.speechBtn.setOnClickListener {
-            launchSpeechRecognizer()
         }
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -430,30 +451,8 @@ class AddEditTeamFragment : Fragment() {
         return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
     }
 
-    private fun isSpeechRecognitionAvailable(): Boolean {
-        val pm = context?.packageManager
-        val activities = pm?.queryIntentActivities(
-            Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0
-        )
-        return activities != null && activities.isNotEmpty()
-    }
-
-    private fun launchSpeechRecognizer() {
-        if (isSpeechRecognitionAvailable()) {
-            try {
-                observer.launchSpeechRecognizer()
-            } catch (e: ActivityNotFoundException) {
-                Toast.makeText(context, "Speech recognition is not supported on this device", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(context, "Speech recognition is not available on this device", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
-        lifecycle.removeObserver(observer)
         _binding = null
     }
 }

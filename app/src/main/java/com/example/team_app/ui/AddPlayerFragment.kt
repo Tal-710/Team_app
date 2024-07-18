@@ -1,6 +1,10 @@
 package com.example.team_app.ui
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +14,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.size
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -25,7 +31,17 @@ class AddPlayerFragment : Fragment() {
 
     private var _binding: AddPlayerLayoutBinding? = null
     private val binding get() = _binding!!
-    private lateinit var AddPlayerobserver: MyLifecycleObserver
+    private lateinit var observer: MyLifecycleObserver
+
+    private val speechRecognizerLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult((ActivityResultContracts.StartActivityForResult())) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val spokenText =
+                    result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
+                Log.d("AddEditPlayer", "Received spoken text: $spokenText")
+                binding.editTextPlayerName.text = Editable.Factory.getInstance().newEditable(spokenText)
+            }
+        }
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -34,19 +50,6 @@ class AddPlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = AddPlayerLayoutBinding.inflate(inflater, container, false)
-
-        AddPlayerobserver = MyLifecycleObserver(
-            requireActivity().activityResultRegistry,
-            requireActivity()
-        ) { spokenText ->
-            Log.d("AddPlayerFragment", "Received spoken text: $spokenText")
-            binding.editTextPlayerName.text = Editable.Factory.getInstance().newEditable(spokenText)
-        }
-        lifecycle.addObserver(AddPlayerobserver)
-
-        binding.speechBtnPlayer.setOnClickListener {
-            AddPlayerobserver.startSpeechRecognition()
-        }
         return binding.root
     }
 
@@ -110,6 +113,26 @@ class AddPlayerFragment : Fragment() {
             if (binding.spinnerPosition.selectedItemPosition != position) {
                 binding.spinnerPosition.setSelection(position)
             }
+        }
+
+        // Initialize observer
+        observer = MyLifecycleObserver(
+            requireActivity().activityResultRegistry,
+            requireContext())
+
+
+        lifecycle.addObserver(observer)
+
+
+        binding.speechBtnPlayer.setOnClickListener {
+            observer.checkPermission(Manifest.permission.RECORD_AUDIO) {
+                val intent = sharedViewModel.getSpeechRecognizerIntent()
+                speechRecognizerLauncher.launch(intent)
+            }
+        }
+
+        sharedViewModel.speechResult.observe(viewLifecycleOwner){ result ->
+            binding.editTextPlayerName.text = Editable.Factory.getInstance().newEditable(result)
         }
 
     }
@@ -196,7 +219,6 @@ class AddPlayerFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        lifecycle.removeObserver(AddPlayerobserver)
         _binding = null
     }
 }
