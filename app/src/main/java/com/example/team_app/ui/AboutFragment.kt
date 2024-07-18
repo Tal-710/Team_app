@@ -1,7 +1,6 @@
 package com.example.team_app.ui
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
@@ -43,7 +42,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun setupHyperlink() {
-        val text = "This team management app is designed with MVVM architecture and utilizes Room DB for local storage and Firebase for sending emails. It allows users to manage teams, add players, and connect emails. Coaches and team managers can easily keep track of their teams and players with this app."
+        val text = getString(R.string.about_text)
         binding.textViewAboutApp.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
         binding.textViewAboutApp.movementMethod = LinkMovementMethod.getInstance()
     }
@@ -54,16 +53,10 @@ class AboutFragment : Fragment() {
             type = "text/plain"
             putExtra(
                 Intent.EXTRA_TEXT,
-                """
-                Check out this amazing team management app! 
-                It uses MVVM architecture, Room DB for local storage, and Firebase for sending emails. 
-                Manage your teams, add players, and connect emails easily. 
-                Ideal for coaches and team managers.
-                For more details, visit our GitHub repository: https://github.com/Tal-710/Team_app
-                """.trimIndent()
+                getString(R.string.Share_text).trimIndent()
             )
         }
-        startActivity(Intent.createChooser(shareIntent, "Share via"))
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)))
     }
 
     override fun onDestroyView() {

@@ -50,9 +50,10 @@
         android:text="@string/share"
         style="@style/CustomButton"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AboutCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24sp"
         android:layout_marginBottom="18dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

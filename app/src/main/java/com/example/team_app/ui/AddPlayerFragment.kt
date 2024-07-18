@@ -16,7 +16,6 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.size
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -34,7 +33,7 @@ class AddPlayerFragment : Fragment() {
     private lateinit var observer: MyLifecycleObserver
 
     private val speechRecognizerLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult((ActivityResultContracts.StartActivityForResult())) { result ->
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
                 val spokenText =
                     result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
@@ -73,8 +72,8 @@ class AddPlayerFragment : Fragment() {
                     teamId = 0L // Temporary assignment
                 )
                 sharedViewModel.addPlayer(newPlayer)
-                findNavController().navigate(R.id.action_addPlayerFragment_to_addEditTeamFragment2)
                 clearInputs()
+                findNavController().navigate(R.id.action_addPlayerFragment_to_addEditTeamFragment2)
             }
         }
 
@@ -118,11 +117,10 @@ class AddPlayerFragment : Fragment() {
         // Initialize observer
         observer = MyLifecycleObserver(
             requireActivity().activityResultRegistry,
-            requireContext())
-
+            requireContext()
+        )
 
         lifecycle.addObserver(observer)
-
 
         binding.speechBtnPlayer.setOnClickListener {
             observer.checkPermission(Manifest.permission.RECORD_AUDIO) {
@@ -131,10 +129,9 @@ class AddPlayerFragment : Fragment() {
             }
         }
 
-        sharedViewModel.speechResult.observe(viewLifecycleOwner){ result ->
+        sharedViewModel.speechResult.observe(viewLifecycleOwner) { result ->
             binding.editTextPlayerName.text = Editable.Factory.getInstance().newEditable(result)
         }
-
     }
 
     private fun setupPositionSpinner() {
@@ -203,7 +200,7 @@ class AddPlayerFragment : Fragment() {
     }
 
     private fun isEnglish(text: String): Boolean {
-        return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
+        return text.all { it.isLetter() && (it in 'A'..'Z' || it in 'a'..'z' || it.isWhitespace()) }
     }
 
     private fun showToast(message: String) {
@@ -215,6 +212,7 @@ class AddPlayerFragment : Fragment() {
         binding.editTextPlayerNumber.text?.clear()
         binding.editTextPlayerAge.text?.clear()
         binding.spinnerPosition.setSelection(0)
+        sharedViewModel.selectedPosition.value = 0 // Reset ViewModel position as well
     }
 
     override fun onDestroyView() {

@@ -20,7 +20,6 @@ import com.example.team_app.R
 import com.example.team_app.data.model.TeamWithPlayers
 import com.example.team_app.databinding.AllTeamLayoutBinding
 import com.example.team_app.ui.adapter.TeamAdapter
-import com.example.team_app.viewmodel.SettingsViewModel
 import com.example.team_app.viewmodel.SharedViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.FirebaseApp
@@ -34,7 +33,6 @@ class AllTeamsFragment : Fragment() {
     private lateinit var teamAdapter: TeamAdapter
     private lateinit var gestureDetector: GestureDetector
     private lateinit var functions: FirebaseFunctions
-    private lateinit var settingsViewModel: SettingsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,12 +110,12 @@ class AllTeamsFragment : Fragment() {
 
     private fun showDeleteConfirmationDialog(team: TeamWithPlayers) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete Team")
-            .setMessage("Are you sure you want to delete this team?")
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setTitle(getString(R.string.delete_team))
+            .setMessage(getString(R.string.are_you_sure_you_want_to_delete_this_team))
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton("OK") { dialog, _ ->
+            .setPositiveButton(R.string.ok) { dialog, _ ->
                 val teamName = team.team.teamName
                 val teamEmail = team.team.teamEmail
                 sendDeleteMailToUser(teamName, teamEmail)

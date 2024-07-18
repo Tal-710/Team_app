@@ -59,41 +59,34 @@
     <string name="no_contact_selected">איש קשר לא נבחר</string>
     <string name="contact_chosen">איש קשר נבחר:</string>
     <string name="max_players_reached">אתה יכול להוסיף מקיסמום 23 שחקנים</string>
+    <string name="Share_text">"\n בדוק את האפליקציה המדהימה הזו לניהול קבוצות! \n היא משתמשת בארכיטקטורת MVVM, Room DB לאחסון מקומי, ו-Firebase לשליחת אימיילים. \n נהל את הקבוצות שלך, הוסף שחקנים וקבל אימיילים בקלות. \n אידיאלי עבור מאמנים ו מנהלי צוות.\n לפרטים נוספים, בקר במאגר GitHub שלנו: https://github.com/Tal-710/Team_app\n "</string>
+    <string name="share_via">שתף דרך</string>
+    <string name="about_text">אפליקציית ניהול קבוצות זו מעוצבת עם ארכיטקטורת MVVM ומשתמשת בRoom DB לאחסון מקומי וב-Firebase לשליחת אימיילים. מאפשר למשתמשים לנהל קבוצות, להוסיף שחקנים ולקבל מיילים אודות שינויים בקבוצה. מאמנים ומנהלי קבוצות יכולים לעקוב בקלות אחר הקבוצות והשחקנים שלהם עם האפליקציה הזו.</string>
+    <string name="about_the_app">אודות</string>
+    <string name="share">שיתוף באמצעות</string>
+    <string name="delete_team">מחק קבוצה</string>
+    <string name="are_you_sure_you_want_to_delete_this_team">האם אתה בטוח שברצונך למחוק את הקבוצה?</string>
 
 
-
-    <string-array name="text_Size_Spinner">
-        <item>@string/small</item>
-        <item>@string/medium</item>
-        <item>@string/large</item>
-    </string-array>
-
-    <string-array name="background_Color_Spinner">
-    <item>@string/white</item>
-    <item>@string/green</item>
-    <item>@string/yellow</item>
-    <item>@string/red</item>
-    <item>@string/purple</item>
-    </string-array>
 
     <string-array name="football_positions">
         <item>@string/player_position</item>
-        <item>GK</item>
-        <item>RB</item>
-        <item>RWB</item>
-        <item>LB</item>
-        <item>LWB</item>
-        <item>SW</item>
+        <item>CAM</item>
         <item>CB</item>
         <item>CDM</item>
-        <item>CM</item>
-        <item>CAM</item>
-        <item>RM</item>
-        <item>RW</item>
-        <item>SS</item>
         <item>CF</item>
-        <item>ST</item>
+        <item>CM</item>
+        <item>GK</item>
+        <item>LB</item>
         <item>LM</item>
         <item>LW</item>
+        <item>LWB</item>
+        <item>RB</item>
+        <item>RM</item>
+        <item>RW</item>
+        <item>RWB</item>
+        <item>SS</item>
+        <item>ST</item>
+        <item>SW</item>
     </string-array>
 </resources>
