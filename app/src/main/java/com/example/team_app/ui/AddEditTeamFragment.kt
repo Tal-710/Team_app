@@ -1,12 +1,16 @@
 package com.example.team_app.ui
 
+
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.speech.RecognizerIntent
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +22,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleObserver
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.team_app.MyLifecycleObserver
 import com.example.team_app.R
 import com.example.team_app.data.model.Team
 import com.example.team_app.databinding.AddEditTeamLayoutBinding
@@ -40,6 +46,7 @@ class AddEditTeamFragment : Fragment() {
 
     private var imageUri: Uri? = null
     private lateinit var functions: FirebaseFunctions
+    private lateinit var observer: MyLifecycleObserver
 
     // Variables to store initial data
     private var initialTeamName: String? = null
@@ -72,9 +79,9 @@ class AddEditTeamFragment : Fragment() {
                     if (it.moveToFirst()) {
                         val contactNumber = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                         sharedViewModel.setContactNumber(contactNumber)
-                        Toast.makeText(requireContext(), "Contact chosen: $contactNumber", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.contact_chosen) + contactNumber, Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(requireContext(), "No contact number found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.no_contact_selected), Toast.LENGTH_SHORT).show()
                     }
                     it.close()
                 }
@@ -99,6 +106,15 @@ class AddEditTeamFragment : Fragment() {
     ): View {
         this.context?.let { FirebaseApp.initializeApp(it) }
         _binding = AddEditTeamLayoutBinding.inflate(inflater, container, false)
+        observer = MyLifecycleObserver(
+            requireActivity().activityResultRegistry,
+            requireActivity()
+        ) { spokenText ->
+            Log.d("AddEditTeamFragment", "Received spoken text: $spokenText")
+            binding.editTextTeamName.text = Editable.Factory.getInstance().newEditable(spokenText)
+        }
+        lifecycle.addObserver(observer as LifecycleObserver)
+
         binding.buttonSelectPhoto.setOnClickListener { pickImageLauncher.launch(arrayOf("image/*")) }
         binding.buttonAddTeamContact.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
@@ -192,13 +208,16 @@ class AddEditTeamFragment : Fragment() {
         }
 
         setupChangeTracking()
-
         binding.buttonAddPlayer.setOnClickListener {
+            lifecycle.removeObserver(observer)
             findNavController().navigate(R.id.action_addEditTeamFragment2_to_addPlayerFragment)
         }
-
         binding.buttonSaveTeam.setOnClickListener {
             saveTeam()
+
+        }
+        binding.speechBtn.setOnClickListener {
+            launchSpeechRecognizer()
         }
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -411,13 +430,30 @@ class AddEditTeamFragment : Fragment() {
         return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
     }
 
+    private fun isSpeechRecognitionAvailable(): Boolean {
+        val pm = context?.packageManager
+        val activities = pm?.queryIntentActivities(
+            Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0
+        )
+        return activities != null && activities.isNotEmpty()
+    }
 
-
-
+    private fun launchSpeechRecognizer() {
+        if (isSpeechRecognitionAvailable()) {
+            try {
+                observer.launchSpeechRecognizer()
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(context, "Speech recognition is not supported on this device", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(context, "Speech recognition is not available on this device", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
+        lifecycle.removeObserver(observer)
         _binding = null
     }
 }

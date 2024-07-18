@@ -88,24 +88,28 @@ class TeamFragment : Fragment() {
                 layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f)
                 setPadding(16, 16, 16, 16)
                 textSize = 18f
+                textDirection = View.TEXT_DIRECTION_LTR
             }
             val textViewNumber = TextView(requireContext()).apply {
                 text = player.playerNumber.toString()
                 layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f)
                 setPadding(16, 16, 16, 16)
                 textSize = 18f
+                textDirection = View.TEXT_DIRECTION_LTR
             }
             val textViewPosition = TextView(requireContext()).apply {
                 text = player.playerPosition
                 layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f)
                 setPadding(16, 16, 16, 16)
                 textSize = 18f
+                textDirection = View.TEXT_DIRECTION_LTR
             }
             val textViewAge = TextView(requireContext()).apply {
                 text = player.playerAge.toString()
                 layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f)
                 setPadding(16, 16, 16, 16)
                 textSize = 18f
+                textDirection = View.TEXT_DIRECTION_LTR
             }
 
             tableRow.addView(textViewName)

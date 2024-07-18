@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
     android:padding="8dp">
 
     <TextView
@@ -17,6 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
+        android:textDirection="ltr"
         android:text="@string/player_name" />
 
     <TextView

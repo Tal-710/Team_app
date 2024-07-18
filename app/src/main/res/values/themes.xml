@@ -1,50 +1,77 @@
-<resources>
-    <!-- Base application theme. -->
-    <style name="Theme.Team_app" parent="Theme.Material3.DayNight.NoActionBar">
-        <!--this is light theme file,add here styles that you want to be in light mode-->
-        <!-- for example <item name="colorPrimary">@color/Text_Color_1</item> the color will
-        the same as the one in color light-->
-        <item name="android:textColor">@color/text_Color_1</item>
-        <item name="android:buttonStyle">@style/Widget.App.Button</item>
-        <item name="android:textColorLink">@color/buttonIconTint</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme -->
+    <style name="Theme.Team_app" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary theme colors -->
+        <item name="colorPrimary">@color/custom_blue</item>
+        <item name="colorPrimaryVariant">@color/custom_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/custom_blue</item>
+        <item name="colorSecondaryVariant">@color/custom_blue</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Enforce LTR layout direction -->
+        <item name="android:layoutDirection">ltr</item>
+
+        <!-- Custom button styles -->
+        <item name="buttonStyle">@style/CustomButton</item>
+        <item name="floatingActionButtonStyle">@style/CustomFloatingActionButton</item>
+
+        <!-- Custom dialog theme -->
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
+
+        <!-- Custom TextInputLayout style -->
+        <item name="textInputStyle">@style/CustomTextInputLayout</item>
+
+        <!-- TextAppearance attributes -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
     </style>
 
-    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+    <!-- Custom button style -->
+    <style name="CustomButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/custom_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
-    <style name="ThemeOverlay.App.Button" parent="">
-        <item name="colorPrimary">@color/button_Background_Color</item>
-        <item name="colorOnPrimary">@color/button_Text_Background_Color</item>
+    <!-- Custom floating action button style -->
+    <style name="CustomFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/custom_blue</item>
+        <item name="rippleColor">@color/white</item>
+        <item name="android:elevation">6dp</item>
     </style>
 
-    <style name="Theme_Team_app_Small" parent="Theme.Team_app">
-        <item name="android:textSize">12sp</item>
-        <item name="android:keyTextSize">12sp</item>
+    <!-- Custom dialog button style -->
+    <style name="CustomAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorAccent">@color/custom_blue</item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomDialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomDialogButton</item>
     </style>
 
-    <style name="Theme_Team_app_Medium" parent="Theme.Team_app">
-        <item name="android:textSize">16sp</item>
-        <item name="android:keyTextSize">16sp</item>
+    <style name="CustomDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/custom_blue</item>
     </style>
 
-    <style name="Theme_Team_app_Large" parent="Theme.Team_app">
-        <item name="android:textSize">20sp</item>
-        <item name="android:keyTextSize">20sp</item>
+    <!-- Custom TextInputLayout style -->
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/custom_blue</item>
+        <item name="hintTextColor">@color/custom_blue</item>
+        <item name="helperTextTextAppearance">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="errorTextAppearance">@style/TextAppearance.MaterialComponents.Caption</item>
     </style>
-    <style name="color_White" parent="Theme.Team_app">
-        <item name="android:background">@color/background_Color_Default_Mode_color</item>
-    </style>
-    <style name="color_Green" parent="Theme.Team_app">
-        <item name="android:background">@color/background_Color_Green</item>
-    </style>
-    <style name="color_Yellow" parent="Theme.Team_app">
-        <item name="android:background">@color/background_Color_Yellow</item>
-    </style>
-    <style name="color_Red" parent="Theme.Team_app">
-        <item name="android:background">@color/background_Color_Red</item>
-    </style>
-    <style name="color_Purple" parent="Theme.Team_app">
-        <item name="android:background">@color/background_Color_Purple</item>
-    </style>
+
 </resources>

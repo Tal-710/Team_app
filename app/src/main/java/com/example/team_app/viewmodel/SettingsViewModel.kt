@@ -17,7 +17,7 @@ public class SettingsViewModel(application: Application) : AndroidViewModel(appl
     private val backgroundColorKey = "background_color"
 
     private val _fontSize = MutableLiveData<Int>().apply {
-        value = preferences.getInt(fontSizeKey, R.style.Theme_Team_app_Medium)
+       // value = preferences.getInt(fontSizeKey, R.style.Theme_Team_app_Medium)
     }
     val fontSize: LiveData<Int> = _fontSize
 

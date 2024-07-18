@@ -1,14 +1,21 @@
 package com.example.team_app.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.size
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.team_app.MyLifecycleObserver
 import com.example.team_app.R
 import com.example.team_app.data.model.Player
 import com.example.team_app.databinding.AddPlayerLayoutBinding
@@ -18,6 +25,8 @@ class AddPlayerFragment : Fragment() {
 
     private var _binding: AddPlayerLayoutBinding? = null
     private val binding get() = _binding!!
+    private lateinit var AddPlayerobserver: MyLifecycleObserver
+
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -25,16 +34,31 @@ class AddPlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = AddPlayerLayoutBinding.inflate(inflater, container, false)
+
+        AddPlayerobserver = MyLifecycleObserver(
+            requireActivity().activityResultRegistry,
+            requireActivity()
+        ) { spokenText ->
+            Log.d("AddPlayerFragment", "Received spoken text: $spokenText")
+            binding.editTextPlayerName.text = Editable.Factory.getInstance().newEditable(spokenText)
+        }
+        lifecycle.addObserver(AddPlayerobserver)
+
+        binding.speechBtnPlayer.setOnClickListener {
+            AddPlayerobserver.startSpeechRecognition()
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupPositionSpinner()
+
         binding.buttonSavePlayer.setOnClickListener {
             val playerName = binding.editTextPlayerName.text.toString()
             val playerNumber = binding.editTextPlayerNumber.text.toString()
-            val playerPosition = binding.editTextPlayerPosition.text.toString()
+            val playerPosition = binding.spinnerPosition.selectedItem.toString()
             val playerAge = binding.editTextPlayerAge.text.toString()
 
             if (validateInputs(playerName, playerNumber, playerPosition, playerAge)) {
@@ -59,10 +83,6 @@ class AddPlayerFragment : Fragment() {
             sharedViewModel.playerNumber.value = it.toString()
         }
 
-        binding.editTextPlayerPosition.addTextChangedListener {
-            sharedViewModel.playerPosition.value = it.toString()
-        }
-
         binding.editTextPlayerAge.addTextChangedListener {
             sharedViewModel.playerAge.value = it.toString()
         }
@@ -80,25 +100,46 @@ class AddPlayerFragment : Fragment() {
             }
         }
 
-        sharedViewModel.playerPosition.observe(viewLifecycleOwner) { position ->
-            if (binding.editTextPlayerPosition.text.toString() != position) {
-                binding.editTextPlayerPosition.setText(position)
-            }
-        }
-
         sharedViewModel.playerAge.observe(viewLifecycleOwner) { age ->
             if (binding.editTextPlayerAge.text.toString() != age) {
                 binding.editTextPlayerAge.setText(age)
             }
         }
-    }
-    private fun isEnglish(text: String): Boolean {
-        return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
+
+        sharedViewModel.selectedPosition.observe(viewLifecycleOwner) { position ->
+            if (binding.spinnerPosition.selectedItemPosition != position) {
+                binding.spinnerPosition.setSelection(position)
+            }
+        }
+
     }
 
+    private fun setupPositionSpinner() {
+        val spinner: Spinner = binding.spinnerPosition
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.football_positions,
+            R.layout.spinner_selected_item // Layout for the selected item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(R.layout.spinner_item) // Layout for the dropdown items
+            spinner.adapter = adapter
+        }
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                if (position != sharedViewModel.selectedPosition.value) {
+                    sharedViewModel.selectedPosition.value = position
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // No action needed here
+            }
+        }
+    }
 
     private fun validateInputs(name: String, number: String, position: String, age: String): Boolean {
-        if (name.isBlank() || number.isBlank() || position.isBlank() || age.isBlank()) {
+        if (name.isBlank() || number.isBlank() || position == "Player Position" || age.isBlank()) {
             showToast(getString(R.string.all_fields_required))
             return false
         }
@@ -129,11 +170,6 @@ class AddPlayerFragment : Fragment() {
             return false
         }
 
-        if (position.length != 2 || !position.all { it.isLetter() }) {
-            showToast(getString(R.string.position_length))
-            return false
-        }
-
         val playerAge = age.toIntOrNull()
         if (playerAge == null || playerAge !in 0..99) {
             showToast(getString(R.string.age_range))
@@ -143,6 +179,9 @@ class AddPlayerFragment : Fragment() {
         return true
     }
 
+    private fun isEnglish(text: String): Boolean {
+        return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
+    }
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -151,12 +190,13 @@ class AddPlayerFragment : Fragment() {
     private fun clearInputs() {
         binding.editTextPlayerName.text?.clear()
         binding.editTextPlayerNumber.text?.clear()
-        binding.editTextPlayerPosition.text?.clear()
         binding.editTextPlayerAge.text?.clear()
+        binding.spinnerPosition.setSelection(0)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        lifecycle.removeObserver(AddPlayerobserver)
         _binding = null
     }
 }

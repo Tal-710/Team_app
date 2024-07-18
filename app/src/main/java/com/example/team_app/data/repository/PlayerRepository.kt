@@ -9,13 +9,6 @@ class PlayerRepository(application: Application) {
 
     private val playerDao = AppDatabase.getDatabase(application).playerDao()
 
-//    fun getPlayers(): LiveData<List<Player>> {
-//        return playerDao.getPlayers()
-//    }
-//
-//    suspend fun getPlayersByTeamId(teamId: Long): List<Player> {
-//        return playerDao.getPlayersByTeamId(teamId)
-//    }
 
     suspend fun addPlayer(player: Player) {
         playerDao.addPlayer(player)

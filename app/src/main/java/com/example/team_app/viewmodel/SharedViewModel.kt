@@ -19,6 +19,8 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     var darkMode = false
     var spinnerPos: Long = 0
 
+    val selectedPosition = MutableLiveData<Int>().apply { value = 0 }
+
     private val playerRepository = PlayerRepository(application)
     private val teamRepository = TeamRepository(application)
 
