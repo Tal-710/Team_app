@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:id="@+id/AddEditScrollView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonSaveTeam">
 
@@ -146,6 +147,7 @@
         android:layout_height="wrap_content"
         android:text="@string/save"
         style="@style/CustomButton"
+        app:layout_constraintTop_toBottomOf="@+id/AddEditScrollView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
