@@ -58,6 +58,7 @@
     <string name="add_contact">הוסף איש קשר</string>
     <string name="no_contact_selected">איש קשר לא נבחר</string>
     <string name="contact_chosen">איש קשר נבחר:</string>
+    <string name="max_players_reached">אתה יכול להוסיף מקיסמום 23 שחקנים</string>
 
 
 

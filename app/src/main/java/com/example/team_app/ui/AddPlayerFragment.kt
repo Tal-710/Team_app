@@ -162,12 +162,12 @@ class AddPlayerFragment : Fragment() {
     }
 
     private fun validateInputs(name: String, number: String, position: String, age: String): Boolean {
-        if (name.isBlank() || number.isBlank() || position == "Player Position" || age.isBlank()) {
+        if (name.isBlank() || number.isBlank() || position == getString(R.string.player_position) || age.isBlank()) {
             showToast(getString(R.string.all_fields_required))
             return false
         }
 
-        if (!name.all { it.isLetter() }) {
+        if (!name.all { it.isLetter() || it.isWhitespace() }) {
             showToast(getString(R.string.name_only_letters))
             return false
         }

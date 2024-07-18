@@ -1,10 +1,8 @@
 package com.example.team_app.ui
 
-
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
@@ -23,8 +21,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -101,8 +97,9 @@ class AddEditTeamFragment : Fragment() {
             sharedViewModel.teamLogoUri.value = it
             checkForChanges()
         }
+
     private val speechRecognizerLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult((ActivityResultContracts.StartActivityForResult())) {result ->
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
                 val spokenText =
                     result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
@@ -133,11 +130,10 @@ class AddEditTeamFragment : Fragment() {
         // Initialize observer
         observer = MyLifecycleObserver(
             requireActivity().activityResultRegistry,
-            requireContext())
-
+            requireContext()
+        )
 
         lifecycle.addObserver(observer)
-
 
         binding.speechBtn.setOnClickListener {
             observer.checkPermission(Manifest.permission.RECORD_AUDIO) {
@@ -145,8 +141,6 @@ class AddEditTeamFragment : Fragment() {
                 speechRecognizerLauncher.launch(intent)
             }
         }
-
-
 
         sharedViewModel.speechResult.observe(viewLifecycleOwner) { result ->
             binding.editTextTeamName.text = Editable.Factory.getInstance().newEditable(result)
@@ -233,12 +227,15 @@ class AddEditTeamFragment : Fragment() {
 
         setupChangeTracking()
         binding.buttonAddPlayer.setOnClickListener {
-            lifecycle.removeObserver(observer)
-            findNavController().navigate(R.id.action_addEditTeamFragment2_to_addPlayerFragment)
+            val playerList = sharedViewModel.playerList.value
+            if (playerList != null && playerList.size >= 23) {
+                showToast(getString(R.string.max_players_reached))
+            } else {
+                findNavController().navigate(R.id.action_addEditTeamFragment2_to_addPlayerFragment)
+            }
         }
         binding.buttonSaveTeam.setOnClickListener {
             saveTeam()
-
         }
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -448,7 +445,7 @@ class AddEditTeamFragment : Fragment() {
     }
 
     private fun isEnglish(text: String): Boolean {
-        return text.all { it.isLetter() && it in 'A'..'Z' || it in 'a'..'z' }
+        return text.all { it.isLetter() && (it in 'A'..'Z' || it in 'a'..'z' || it.isWhitespace()) }
     }
 
     override fun onDestroyView() {

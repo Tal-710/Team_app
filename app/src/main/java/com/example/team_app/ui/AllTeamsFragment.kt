@@ -71,8 +71,11 @@ class AllTeamsFragment : Fragment() {
             findNavController().navigate(R.id.action_allTeamsFragment_to_addEditTeamFragment2)
         }
 
-        binding.buttonSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_allTeamsFragment_to_settingsFragment)
+//        binding.buttonSettings.setOnClickListener {
+//            findNavController().navigate(R.id.action_allTeamsFragment_to_settingsFragment)
+//        }
+        binding.buttonAbout.setOnClickListener {
+            findNavController().navigate(R.id.action_allTeamsFragment_to_aboutFragment)
         }
 
         gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
