@@ -23,7 +23,7 @@
 
         <!-- Custom TextInputLayout style -->
         <item name="textInputStyle">@style/CustomTextInputLayout</item>
-
+        <item name="android:textColor">@color/black</item>
         <!-- TextAppearance attributes -->
         <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
