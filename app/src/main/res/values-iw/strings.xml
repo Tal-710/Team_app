@@ -70,6 +70,7 @@
     <string name="for_new_team_press_the_button_and_follow_the_process">ליצירת קבוצה חדשה לחץ על "+" ועקוב אחר התהליך.</string>
     <string name="to_delete_players_swipe_the_player_left_or_right_and_press_ok">למחיקת שחקן החלק את השחקן ימין או שמאל ולחץ "כן".</string>
     <string name="to_delete_a_team_long_press_on_the_team_logo_and_press_ok">למחיקת תמונה, לחץ לחיצה ארוכה על לוגו הקבוצה ולחץ "כן".</string>
+    <string name="permission_denied">גישה נדחת</string>
 
 
 

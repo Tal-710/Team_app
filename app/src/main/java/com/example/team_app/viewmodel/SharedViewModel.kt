@@ -19,8 +19,6 @@ import java.util.Locale
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
-    var darkMode = false
-    var spinnerPos: Long = 0
 
     val selectedPosition = MutableLiveData<Int>().apply { value = 0 }
 
@@ -33,7 +31,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     val playerName = MutableLiveData<String>()
     val playerNumber = MutableLiveData<String>()
-    val playerPosition = MutableLiveData<String>()
     val playerAge = MutableLiveData<String>()
 
     val teamName = MutableLiveData<String>()
@@ -65,9 +62,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         resetEditMode()
     }
 
-    fun onSpeechResult(result: String) {
-        _speechResult.value = result
-    }
+//    fun onSpeechResult(result: String) {
+//        _speechResult.value = result
+//    }
 
     fun getSpeechRecognizerIntent(): Intent {
         return Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
@@ -145,7 +142,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun isTeamNameUnique(teamName: String): Boolean {
-        return _teamList.value?.none { it.team.teamName == teamName } == true
+        return _teamList.value?.none { it.team.teamName.uppercase() == teamName.uppercase() } == true
     }
 
     fun setEditTeam(teamWithPlayers: TeamWithPlayers) {

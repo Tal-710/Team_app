@@ -36,9 +36,11 @@ class AddPlayerFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
                 val spokenText =
-                    result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
+                    result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0)
+                        ?: ""
                 Log.d("AddEditPlayer", "Received spoken text: $spokenText")
-                binding.editTextPlayerName.text = Editable.Factory.getInstance().newEditable(spokenText)
+                binding.editTextPlayerName.text =
+                    Editable.Factory.getInstance().newEditable(spokenText)
             }
         }
 
@@ -146,7 +148,12 @@ class AddPlayerFragment : Fragment() {
         }
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 if (position != sharedViewModel.selectedPosition.value) {
                     sharedViewModel.selectedPosition.value = position
                 }
@@ -158,7 +165,12 @@ class AddPlayerFragment : Fragment() {
         }
     }
 
-    private fun validateInputs(name: String, number: String, position: String, age: String): Boolean {
+    private fun validateInputs(
+        name: String,
+        number: String,
+        position: String,
+        age: String
+    ): Boolean {
         if (name.isBlank() || number.isBlank() || position == getString(R.string.player_position) || age.isBlank()) {
             showToast(getString(R.string.all_fields_required))
             return false

@@ -1,4 +1,3 @@
-
 package com.example.team_app.ui.adapter
 
 import android.view.LayoutInflater
@@ -7,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.team_app.data.model.Player
 import com.example.team_app.databinding.PlayerLayoutBinding
 
-class PlayerAdapter(private val players: MutableList<Player>) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+class PlayerAdapter(private val players: MutableList<Player>) :
+    RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
 
-    class PlayerViewHolder(private val binding: PlayerLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class PlayerViewHolder(private val binding: PlayerLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(player: Player) {
             binding.textViewPlayerName.text = player.playerName
             binding.textViewPlayerNumber.text = player.playerNumber.toString()
@@ -17,7 +18,8 @@ class PlayerAdapter(private val players: MutableList<Player>) : RecyclerView.Ada
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
-        val binding = PlayerLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            PlayerLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PlayerViewHolder(binding)
     }
 

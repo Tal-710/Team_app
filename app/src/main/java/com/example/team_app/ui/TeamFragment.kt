@@ -36,7 +36,11 @@ class TeamFragment : Fragment() {
         if (isGranted) {
             call()
         } else {
-            Toast.makeText(requireContext(), "Can't make call without permission", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                "Can't make call without permission",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -138,7 +142,8 @@ class TeamFragment : Fragment() {
             }
             startActivity(intent)
         } else {
-            Toast.makeText(requireContext(), "No contact number available", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "No contact number available", Toast.LENGTH_LONG)
+                .show()
         }
     }
 

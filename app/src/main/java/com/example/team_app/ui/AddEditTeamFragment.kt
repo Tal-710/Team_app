@@ -75,11 +75,20 @@ class AddEditTeamFragment : Fragment() {
                 )
                 cursor?.let {
                     if (it.moveToFirst()) {
-                        val contactNumber = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                        val contactNumber =
+                            it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                         sharedViewModel.setContactNumber(contactNumber)
-                        Toast.makeText(requireContext(), getString(R.string.contact_chosen) + contactNumber, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.contact_chosen) + contactNumber,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
-                        Toast.makeText(requireContext(), getString(R.string.no_contact_selected), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.no_contact_selected),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     it.close()
                 }
@@ -102,9 +111,11 @@ class AddEditTeamFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
                 val spokenText =
-                    result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0) ?: ""
+                    result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0)
+                        ?: ""
                 Log.d("AddEditTeamFragment", "Received spoken text: $spokenText")
-                binding.editTextTeamName.text = Editable.Factory.getInstance().newEditable(spokenText)
+                binding.editTextTeamName.text =
+                    Editable.Factory.getInstance().newEditable(spokenText)
             }
         }
 
@@ -116,7 +127,8 @@ class AddEditTeamFragment : Fragment() {
         _binding = AddEditTeamLayoutBinding.inflate(inflater, container, false)
         binding.buttonSelectPhoto.setOnClickListener { pickImageLauncher.launch(arrayOf("image/*")) }
         binding.buttonAddTeamContact.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
+            val intent =
+                Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
             pickContactLauncher.launch(intent)
         }
 
@@ -127,7 +139,7 @@ class AddEditTeamFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         functions = FirebaseFunctions.getInstance()
 
-        // Initialize observer
+
         observer = MyLifecycleObserver(
             requireActivity().activityResultRegistry,
             requireContext()
@@ -169,10 +181,10 @@ class AddEditTeamFragment : Fragment() {
                         binding.imageViewTeamLogo.setImageURI(Uri.parse(it))
                     }
                     binding.editTextTeamEmail.setText(team.teamEmail)
-                    binding.editTextTeamEmail.isEnabled = false // Disable editing in edit mode
+                    binding.editTextTeamEmail.isEnabled = false
                     playerAdapter.updatePlayers(teamWithPlayers.players)
 
-                    // Store initial data
+
                     initialTeamName = team.teamName
                     initialTeamLogoUri = Uri.parse(team.teamLogoUri)
                     initialPlayerList = teamWithPlayers.players.map { it.playerName }
@@ -186,7 +198,7 @@ class AddEditTeamFragment : Fragment() {
                 initialTeamLogoUri = null
                 initialPlayerList = null
                 initialTeamContactNumber = null
-                binding.editTextTeamEmail.isEnabled = true // Enable editing in new team creation mode
+                binding.editTextTeamEmail.isEnabled = true
                 hasChanges = false
             }
         }
@@ -295,6 +307,7 @@ class AddEditTeamFragment : Fragment() {
                             (initialTeamContactNumber == getString(R.string.no_contact_selected) && currentTeamContactNumber != "") ||
                             (initialTeamContactNumber != getString(R.string.no_contact_selected) && currentTeamContactNumber != initialTeamContactNumber)
                     )
+
             else -> (
                     currentTeamName.isNotEmpty() ||
                             currentTeamLogoUri != null ||

@@ -60,7 +60,7 @@
     <string name="max_players_reached">You can add 23 players at max</string>
     <string name="Share_text">"\n                Check out this amazing team management app! \n                It uses MVVM architecture, Room DB for local storage, and Firebase for sending emails. \n                Manage your teams, add players, and connect emails easily. \n                Ideal for coaches and team managers.\n                For more details, visit our GitHub repository: https://github.com/Tal-710/Team_app\n                "</string>
     <string name="share_via">Share via</string>
-    <string name="about_text">This team management app is designed with MVVM architecture and utilizes Room DB for local storage and Firebase for sending emails. It allows users to manage teams, add players, and connect emails. Coaches and team managers can easily keep track of their teams and players with this app.</string>
+    <string name="about_text">This team management app is designed with MVVM architecture and utilizes Room DB for local storage and Firebase for sending emails. It allows users to manage teams, add players, and get emails according to changes in team data. Coaches and team managers can easily keep track of their teams and players with this app.</string>
     <string name="about_the_app">About the App</string>
     <string name="share">Share</string>
     <string name="delete_team">Delete Team</string>
@@ -69,6 +69,7 @@
     <string name="for_new_team_press_the_button_and_follow_the_process">For new team press the + button and follow the process.</string>
     <string name="to_delete_players_swipe_the_player_left_or_right_and_press_ok">To delete players, swipe the player left or right and press OK.</string>
     <string name="to_delete_a_team_long_press_on_the_team_logo_and_press_ok">To delete a team, long press on the team logo and press OK.</string>
+    <string name="permission_denied">Permission denied</string>
 
 
     <string-array name="football_positions">

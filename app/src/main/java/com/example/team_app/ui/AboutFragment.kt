@@ -31,7 +31,6 @@ class AboutFragment : Fragment() {
             shareAppInfo()
         }
 
-        // Enable back button to navigate back to AllTeamsFragment
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_aboutFragment_to_allTeamsFragment)
         }

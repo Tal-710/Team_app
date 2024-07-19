@@ -41,6 +41,7 @@ class AllTeamsFragment : Fragment() {
         _binding = AllTeamLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context?.let { FirebaseApp.initializeApp(it) }
@@ -76,31 +77,32 @@ class AllTeamsFragment : Fragment() {
             findNavController().navigate(R.id.action_allTeamsFragment_to_aboutFragment)
         }
 
-        gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onSingleTapUp(e: MotionEvent): Boolean {
-                val view = binding.recyclerViewTeams.findChildViewUnder(e.x, e.y)
-                if (view != null) {
-                    val position = binding.recyclerViewTeams.getChildAdapterPosition(view)
-                    if (position != RecyclerView.NO_POSITION) {
-                        val team = teamAdapter.teams[position]
-                        sharedViewModel.setChosenTeam(team)
-                        findNavController().navigate(R.id.action_allTeamsFragment_to_teamFragment)
+        gestureDetector =
+            GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+                override fun onSingleTapUp(e: MotionEvent): Boolean {
+                    val view = binding.recyclerViewTeams.findChildViewUnder(e.x, e.y)
+                    if (view != null) {
+                        val position = binding.recyclerViewTeams.getChildAdapterPosition(view)
+                        if (position != RecyclerView.NO_POSITION) {
+                            val team = teamAdapter.teams[position]
+                            sharedViewModel.setChosenTeam(team)
+                            findNavController().navigate(R.id.action_allTeamsFragment_to_teamFragment)
+                        }
                     }
+                    return super.onSingleTapUp(e)
                 }
-                return super.onSingleTapUp(e)
-            }
 
-            override fun onLongPress(e: MotionEvent) {
-                val view = binding.recyclerViewTeams.findChildViewUnder(e.x, e.y)
-                if (view != null) {
-                    val position = binding.recyclerViewTeams.getChildAdapterPosition(view)
-                    if (position != RecyclerView.NO_POSITION) {
-                        val team = teamAdapter.teams[position]
-                        showDeleteConfirmationDialog(team)
+                override fun onLongPress(e: MotionEvent) {
+                    val view = binding.recyclerViewTeams.findChildViewUnder(e.x, e.y)
+                    if (view != null) {
+                        val position = binding.recyclerViewTeams.getChildAdapterPosition(view)
+                        if (position != RecyclerView.NO_POSITION) {
+                            val team = teamAdapter.teams[position]
+                            showDeleteConfirmationDialog(team)
+                        }
                     }
                 }
-            }
-        })
+            })
 
         binding.recyclerViewTeams.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)

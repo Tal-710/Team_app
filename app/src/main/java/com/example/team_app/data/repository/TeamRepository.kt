@@ -24,7 +24,7 @@ class TeamRepository(application: Application) {
     }
 
     suspend fun deleteTeam(team: Team) {
-            teamDao.delete(team)
+        teamDao.delete(team)
 
     }
 }

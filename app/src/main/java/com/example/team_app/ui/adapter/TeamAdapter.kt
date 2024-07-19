@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.team_app.data.model.TeamWithPlayers
 import com.example.team_app.databinding.ItemTeamLayoutBinding
 
-class TeamAdapter(val teams: MutableList<TeamWithPlayers>) : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
+class TeamAdapter(val teams: MutableList<TeamWithPlayers>) :
+    RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
 
-    class TeamViewHolder(private val binding: ItemTeamLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class TeamViewHolder(private val binding: ItemTeamLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(teamWithPlayers: TeamWithPlayers) {
             val team = teamWithPlayers.team
             binding.textViewTeamItemName.text = team.teamName
@@ -18,7 +20,8 @@ class TeamAdapter(val teams: MutableList<TeamWithPlayers>) : RecyclerView.Adapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
-        val binding = ItemTeamLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemTeamLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TeamViewHolder(binding)
     }
 
