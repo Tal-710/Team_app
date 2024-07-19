@@ -66,6 +66,10 @@
     <string name="share">שיתוף באמצעות</string>
     <string name="delete_team">מחק קבוצה</string>
     <string name="are_you_sure_you_want_to_delete_this_team">האם אתה בטוח שברצונך למחוק את הקבוצה?</string>
+    <string name="help">עזרה</string>
+    <string name="for_new_team_press_the_button_and_follow_the_process">ליצירת קבוצה חדשה לחץ על "+" ועקוב אחר התהליך.</string>
+    <string name="to_delete_players_swipe_the_player_left_or_right_and_press_ok">למחיקת שחקן החלק את השחקן ימין או שמאל ולחץ "כן".</string>
+    <string name="to_delete_a_team_long_press_on_the_team_logo_and_press_ok">למחיקת תמונה, לחץ לחיצה ארוכה על לוגו הקבוצה ולחץ "כן".</string>
 
 
 

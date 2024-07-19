@@ -2,8 +2,6 @@ package com.example.team_app.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,14 +35,6 @@ class AboutFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_aboutFragment_to_allTeamsFragment)
         }
-
-        setupHyperlink()
-    }
-
-    private fun setupHyperlink() {
-        val text = getString(R.string.about_text)
-        binding.textViewAboutApp.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
-        binding.textViewAboutApp.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun shareAppInfo() {
