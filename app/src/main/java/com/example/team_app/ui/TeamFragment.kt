@@ -25,11 +25,17 @@ import com.example.team_app.data.model.Player
 import com.example.team_app.databinding.TeamLayoutBinding
 import com.example.team_app.viewmodel.SharedViewModel
 
+// Fragment to display details of a selected team
 class TeamFragment : Fragment() {
 
+    // Binding for the layout
     private var _binding: TeamLayoutBinding? = null
     private val binding get() = _binding!!
+
+    // Shared ViewModel for data communication between fragments
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    // Launcher to request call phone permission
     private val callPermissionLauncher: ActivityResultLauncher<String> = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -38,12 +44,13 @@ class TeamFragment : Fragment() {
         } else {
             Toast.makeText(
                 requireContext(),
-                "Can't make call without permission",
+                getString(R.string.can_t_make_call_without_permission),
                 Toast.LENGTH_LONG
             ).show()
         }
     }
 
+    // Inflate the layout and initialize the binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,30 +59,36 @@ class TeamFragment : Fragment() {
         return binding.root
     }
 
+    // Set up the view after it is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Observe the chosen team and update UI when data changes
         sharedViewModel.chosenTeam.observe(viewLifecycleOwner, Observer { teamWithPlayers ->
             val team = teamWithPlayers.team
             binding.textViewTeamName.text = team.teamName
             Glide.with(requireContext()).load(team.teamLogoUri).into(binding.imageViewTeamLogo)
 
+            // Set click listener to show players dialog
             binding.buttonTeamPlayers.setOnClickListener {
                 showPlayersDialog(teamWithPlayers.players)
             }
 
+            // Set click listener to edit the team
             binding.buttonEditTeam.setOnClickListener {
                 sharedViewModel.setEditTeam(teamWithPlayers)
                 sharedViewModel.setEditMode()
                 findNavController().navigate(R.id.action_teamFragment_to_addEditTeamFragment2)
             }
 
+            // Set click listener to call the team contact
             binding.buttonCallContact.setOnClickListener {
                 callPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
             }
         })
     }
 
+    // Show a dialog with the list of players
     @SuppressLint("SetTextI18n", "InflateParams")
     private fun showPlayersDialog(players: List<Player>) {
         val inflater = layoutInflater
@@ -124,6 +137,7 @@ class TeamFragment : Fragment() {
             tableLayout.addView(tableRow)
         }
 
+        // Show the dialog
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setPositiveButton(getString(R.string.cancel)) { dialog, _ ->
@@ -134,6 +148,7 @@ class TeamFragment : Fragment() {
         dialog.show()
     }
 
+    // Make a call to the team's contact number
     private fun call() {
         val phone = sharedViewModel.chosenTeam.value?.team?.teamContactNumber
         if (!phone.isNullOrEmpty()) {
@@ -142,11 +157,15 @@ class TeamFragment : Fragment() {
             }
             startActivity(intent)
         } else {
-            Toast.makeText(requireContext(), "No contact number available", Toast.LENGTH_LONG)
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.no_contact_number_available), Toast.LENGTH_LONG
+            )
                 .show()
         }
     }
 
+    // Clean up the view binding when the view is destroyed
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

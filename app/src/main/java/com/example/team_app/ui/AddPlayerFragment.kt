@@ -26,12 +26,17 @@ import com.example.team_app.data.model.Player
 import com.example.team_app.databinding.AddPlayerLayoutBinding
 import com.example.team_app.viewmodel.SharedViewModel
 
+// Fragment for adding a new player
 class AddPlayerFragment : Fragment() {
 
+    // Binding for the layout
     private var _binding: AddPlayerLayoutBinding? = null
     private val binding get() = _binding!!
+
+    // Observer for lifecycle events
     private lateinit var observer: MyLifecycleObserver
 
+    // Launcher for speech recognition
     private val speechRecognizerLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
@@ -44,8 +49,10 @@ class AddPlayerFragment : Fragment() {
             }
         }
 
+    // Shared ViewModel for data communication between fragments
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
+    // Inflate the layout and initialize the binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,17 +61,21 @@ class AddPlayerFragment : Fragment() {
         return binding.root
     }
 
+    // Set up the view after it is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Set up the position spinner
         setupPositionSpinner()
 
+        // Set click listener for the save button
         binding.buttonSavePlayer.setOnClickListener {
             val playerName = binding.editTextPlayerName.text.toString()
             val playerNumber = binding.editTextPlayerNumber.text.toString()
             val playerPosition = binding.spinnerPosition.selectedItem.toString()
             val playerAge = binding.editTextPlayerAge.text.toString()
 
+            // Validate inputs and add the player if valid
             if (validateInputs(playerName, playerNumber, playerPosition, playerAge)) {
                 val newPlayer = Player(
                     playerName = playerName,
@@ -79,6 +90,7 @@ class AddPlayerFragment : Fragment() {
             }
         }
 
+        // Add text change listeners to update the ViewModel
         binding.editTextPlayerName.addTextChangedListener {
             sharedViewModel.playerName.value = it.toString()
         }
@@ -91,7 +103,7 @@ class AddPlayerFragment : Fragment() {
             sharedViewModel.playerAge.value = it.toString()
         }
 
-        // Observing changes in the ViewModel
+        // Observe changes in the ViewModel and update the UI
         sharedViewModel.playerName.observe(viewLifecycleOwner) { name ->
             if (binding.editTextPlayerName.text.toString() != name) {
                 binding.editTextPlayerName.setText(name)
@@ -116,14 +128,14 @@ class AddPlayerFragment : Fragment() {
             }
         }
 
-        // Initialize observer
+        // Initialize lifecycle observer
         observer = MyLifecycleObserver(
             requireActivity().activityResultRegistry,
             requireContext()
         )
-
         lifecycle.addObserver(observer)
 
+        // Set click listener for the speech button
         binding.speechBtnPlayer.setOnClickListener {
             observer.checkPermission(Manifest.permission.RECORD_AUDIO) {
                 val intent = sharedViewModel.getSpeechRecognizerIntent()
@@ -131,11 +143,13 @@ class AddPlayerFragment : Fragment() {
             }
         }
 
+        // Observe speech result and update the player name
         sharedViewModel.speechResult.observe(viewLifecycleOwner) { result ->
             binding.editTextPlayerName.text = Editable.Factory.getInstance().newEditable(result)
         }
     }
 
+    // Set up the position spinner with football positions
     private fun setupPositionSpinner() {
         val spinner: Spinner = binding.spinnerPosition
         ArrayAdapter.createFromResource(
@@ -147,6 +161,7 @@ class AddPlayerFragment : Fragment() {
             spinner.adapter = adapter
         }
 
+        // Update the ViewModel when a position is selected
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -165,6 +180,7 @@ class AddPlayerFragment : Fragment() {
         }
     }
 
+    // Validate the inputs for adding a new player
     private fun validateInputs(
         name: String,
         number: String,
@@ -211,14 +227,17 @@ class AddPlayerFragment : Fragment() {
         return true
     }
 
+    // Check if the text is in English
     private fun isEnglish(text: String): Boolean {
         return text.all { it.isLetter() && (it in 'A'..'Z' || it in 'a'..'z' || it.isWhitespace()) }
     }
 
+    // Show a toast message
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
+    // Clear the input fields and reset ViewModel data
     private fun clearInputs() {
         binding.editTextPlayerName.text?.clear()
         binding.editTextPlayerNumber.text?.clear()
@@ -227,6 +246,7 @@ class AddPlayerFragment : Fragment() {
         sharedViewModel.selectedPosition.value = 0 // Reset ViewModel position as well
     }
 
+    // Clean up the view binding when the view is destroyed
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

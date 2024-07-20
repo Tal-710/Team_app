@@ -35,15 +35,28 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.FirebaseApp
 import com.google.firebase.functions.FirebaseFunctions
 
+// Fragment to add or edit a team
 class AddEditTeamFragment : Fragment() {
 
+    // Backing property for view binding
     private var _binding: AddEditTeamLayoutBinding? = null
+
+    // Public property for accessing the binding, ensuring it's not null
     private val binding get() = _binding!!
+
+    // Shared ViewModel for communication between fragments
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    // Adapter for displaying players
     private lateinit var playerAdapter: PlayerAdapter
 
+    // URI of the selected image
     private var imageUri: Uri? = null
+
+    // Firebase Functions instance for sending emails
     private lateinit var functions: FirebaseFunctions
+
+    // Lifecycle observer for handling permissions
     private lateinit var observer: MyLifecycleObserver
 
     // Variables to store initial data
@@ -96,6 +109,7 @@ class AddEditTeamFragment : Fragment() {
         }
     }
 
+    // Launcher for picking an image from the device
     private val pickImageLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) {
             binding.imageViewTeamLogo.setImageURI(it)
@@ -107,6 +121,7 @@ class AddEditTeamFragment : Fragment() {
             checkForChanges()
         }
 
+    // Launcher for speech recognition
     private val speechRecognizerLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
@@ -119,12 +134,14 @@ class AddEditTeamFragment : Fragment() {
             }
         }
 
+    // Inflate the layout for this fragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         this.context?.let { FirebaseApp.initializeApp(it) }
         _binding = AddEditTeamLayoutBinding.inflate(inflater, container, false)
+        // Set click listeners for buttons
         binding.buttonSelectPhoto.setOnClickListener { pickImageLauncher.launch(arrayOf("image/*")) }
         binding.buttonAddTeamContact.setOnClickListener {
             val intent =
@@ -135,18 +152,19 @@ class AddEditTeamFragment : Fragment() {
         return binding.root
     }
 
+    // Set up the view after it has been created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         functions = FirebaseFunctions.getInstance()
 
-
+        // Initialize the lifecycle observer for handling permissions
         observer = MyLifecycleObserver(
             requireActivity().activityResultRegistry,
             requireContext()
         )
-
         lifecycle.addObserver(observer)
 
+        // Set click listener for the speech button
         binding.speechBtn.setOnClickListener {
             observer.checkPermission(Manifest.permission.RECORD_AUDIO) {
                 val intent = sharedViewModel.getSpeechRecognizerIntent()
@@ -154,10 +172,12 @@ class AddEditTeamFragment : Fragment() {
             }
         }
 
+        // Observe speech result and update team name
         sharedViewModel.speechResult.observe(viewLifecycleOwner) { result ->
             binding.editTextTeamName.text = Editable.Factory.getInstance().newEditable(result)
         }
 
+        // Handle back press to show unsaved changes dialog if there are changes
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (hasChanges) {
                 showUnsavedChangesDialog()
@@ -166,14 +186,17 @@ class AddEditTeamFragment : Fragment() {
             }
         }
 
+        // Initialize the player adapter and set up the RecyclerView
         playerAdapter = PlayerAdapter(mutableListOf())
         binding.recyclerViewPlayers.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = playerAdapter
         }
 
+        // Observe edit mode and update UI accordingly
         sharedViewModel.isEditMode.observe(viewLifecycleOwner) { isEditMode ->
             if (isEditMode == true) {
+                // Edit mode
                 sharedViewModel.editTeam.value?.let { teamWithPlayers ->
                     val team = teamWithPlayers.team
                     binding.editTextTeamName.setText(team.teamName)
@@ -184,7 +207,7 @@ class AddEditTeamFragment : Fragment() {
                     binding.editTextTeamEmail.isEnabled = false
                     playerAdapter.updatePlayers(teamWithPlayers.players)
 
-
+                    // Store initial data for change tracking
                     initialTeamName = team.teamName
                     initialTeamLogoUri = Uri.parse(team.teamLogoUri)
                     initialPlayerList = teamWithPlayers.players.map { it.playerName }
@@ -203,34 +226,31 @@ class AddEditTeamFragment : Fragment() {
             }
         }
 
+        // Add text change listeners for tracking changes
         binding.editTextTeamEmail.addTextChangedListener {
             sharedViewModel.teamEmail.value = it.toString()
         }
-
         binding.editTextTeamName.addTextChangedListener {
             sharedViewModel.teamName.value = it.toString()
         }
 
+        // Observe ViewModel data and update UI
         sharedViewModel.teamName.observe(viewLifecycleOwner) { name ->
             if (binding.editTextTeamName.text.toString() != name) {
                 binding.editTextTeamName.setText(name)
             }
         }
-
         sharedViewModel.teamEmail.observe(viewLifecycleOwner) { email ->
             if (binding.editTextTeamEmail.text.toString() != email) {
                 binding.editTextTeamEmail.setText(email)
             }
         }
-
         sharedViewModel.teamContactNumber.observe(viewLifecycleOwner) { contactNumber ->
             binding.textViewTeamContactNumber.text = contactNumber
         }
-
         sharedViewModel.teamLogoUri.observe(viewLifecycleOwner) { uri ->
             binding.imageViewTeamLogo.setImageURI(uri)
         }
-
         sharedViewModel.playerList.observe(viewLifecycleOwner) { players ->
             if (players != null) {
                 playerAdapter.updatePlayers(players)
@@ -238,6 +258,7 @@ class AddEditTeamFragment : Fragment() {
         }
 
         setupChangeTracking()
+        // Set click listener for adding a player
         binding.buttonAddPlayer.setOnClickListener {
             val playerList = sharedViewModel.playerList.value
             if (playerList != null && playerList.size >= 23) {
@@ -246,10 +267,12 @@ class AddEditTeamFragment : Fragment() {
                 findNavController().navigate(R.id.action_addEditTeamFragment2_to_addPlayerFragment)
             }
         }
+        // Set click listener for saving the team
         binding.buttonSaveTeam.setOnClickListener {
             saveTeam()
         }
 
+        // Setup ItemTouchHelper for swipe actions in RecyclerView
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
@@ -273,6 +296,7 @@ class AddEditTeamFragment : Fragment() {
         }).attachToRecyclerView(binding.recyclerViewPlayers)
     }
 
+    // Setup change tracking for detecting unsaved changes
     private fun setupChangeTracking() {
         binding.editTextTeamName.addTextChangedListener {
             checkForChanges()
@@ -292,6 +316,7 @@ class AddEditTeamFragment : Fragment() {
         }
     }
 
+    // Check if there are any changes in the input fields compared to initial values
     private fun checkForChanges() {
         val currentTeamName = binding.editTextTeamName.text.toString()
         val currentTeamLogoUri = sharedViewModel.teamLogoUri.value
@@ -317,6 +342,7 @@ class AddEditTeamFragment : Fragment() {
         }
     }
 
+    // Save the team to the database and send an email
     private fun saveTeam() {
         val teamName = binding.editTextTeamName.text.toString()
         val teamLogoUri = sharedViewModel.teamLogoUri.value
@@ -371,6 +397,7 @@ class AddEditTeamFragment : Fragment() {
             binding.editTextTeamEmail.isEnabled = false
         }
 
+        // Create a new team object
         val team = Team(
             teamName = teamName,
             teamLogoUri = teamLogoUri.toString(),
@@ -379,25 +406,30 @@ class AddEditTeamFragment : Fragment() {
         )
 
         if (sharedViewModel.isEditMode.value == true) {
+            // Update existing team
             team.teamId = sharedViewModel.editTeam.value?.team?.teamId
             sharedViewModel.updateTeam(team)
             if (hasChanges) {
                 sendMailToUser(teamName, teamEmail, true)
             }
         } else {
+            // Save new team
             sharedViewModel.saveTeam(team)
             sendMailToUser(teamName, teamEmail, false)
         }
 
+        // Clear input fields and reset change tracking
         clearInputFields()
         hasChanges = false
         findNavController().navigate(R.id.action_addEditTeamFragment2_to_allTeamsFragment)
     }
 
+    // Validate email format
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
+    // Show a dialog to warn about unsaved changes
     private fun showUnsavedChangesDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.unsaved_changes_title))
@@ -412,6 +444,7 @@ class AddEditTeamFragment : Fragment() {
             .show()
     }
 
+    // Clear input fields and reset ViewModel data
     private fun clearInputFields() {
         binding.editTextTeamName.text?.clear()
         binding.imageViewTeamLogo.setImageURI(null)
@@ -422,10 +455,12 @@ class AddEditTeamFragment : Fragment() {
         sharedViewModel.resetEditMode()
     }
 
+    // Show a toast message
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
+    // Show a confirmation dialog for deleting a player
     private fun showDeleteConfirmationDialog(position: Int) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.delete_player_title))
@@ -441,6 +476,7 @@ class AddEditTeamFragment : Fragment() {
             }.show()
     }
 
+    // Send an email to the user when a team is saved or updated
     private fun sendMailToUser(teamName: String, userEmail: String, isEditMode: Boolean) {
         val data = hashMapOf(
             "teamName" to teamName,
@@ -457,10 +493,12 @@ class AddEditTeamFragment : Fragment() {
             }
     }
 
+    // Check if the text is in English
     private fun isEnglish(text: String): Boolean {
         return text.all { it.isLetter() && (it in 'A'..'Z' || it in 'a'..'z' || it.isWhitespace()) }
     }
 
+    // Clean up the view binding when the view is destroyed
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -70,6 +70,14 @@
     <string name="to_delete_players_swipe_the_player_left_or_right_and_press_ok">To delete players, swipe the player left or right and press OK.</string>
     <string name="to_delete_a_team_long_press_on_the_team_logo_and_press_ok">To delete a team, long press on the team logo and press OK.</string>
     <string name="permission_denied">Permission denied</string>
+    <string name="no_contact_number_available">No contact number available</string>
+    <string name="can_t_make_call_without_permission">Can\'t make call without permission</string>
+    <string name="view_players">View Players</string>
+    <string name="buttoncallcontact">buttonCallContact</string>
+    <string name="edit_team">Edit Team</string>
+    <string name="about">About</string>
+    <string name="add_team">add_team\n</string>
+    <string name="microphone">microphone</string>
 
 
     <string-array name="football_positions">

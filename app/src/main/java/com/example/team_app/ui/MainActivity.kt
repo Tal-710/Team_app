@@ -13,12 +13,10 @@ import com.example.team_app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        //val textSize = sharedPref.getInt("textSize", R.style.Theme_Team_app_Small)
-       // setTheme(textSize)
-        val backgroundColor=sharedPref.getInt("backgroundColor", R.style.color_White)
+        val backgroundColor = sharedPref.getInt("backgroundColor", R.style.color_White)
         setTheme(backgroundColor)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

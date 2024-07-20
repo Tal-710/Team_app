@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,15 +24,26 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.FirebaseApp
 import com.google.firebase.functions.FirebaseFunctions
 
+// Fragment to display all teams
 class AllTeamsFragment : Fragment() {
 
+    // Binding for the layout
     private var _binding: AllTeamLayoutBinding? = null
     private val binding get() = _binding!!
+
+    // Shared ViewModel for data communication between fragments
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    // Adapter for displaying teams
     private lateinit var teamAdapter: TeamAdapter
+
+    // Gesture detector for handling touch events
     private lateinit var gestureDetector: GestureDetector
+
+    // Firebase Functions instance for sending emails
     private lateinit var functions: FirebaseFunctions
 
+    // Inflate the layout and initialize the binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,41 +52,42 @@ class AllTeamsFragment : Fragment() {
         return binding.root
     }
 
+    // Initialize Firebase and Firebase Functions
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context?.let { FirebaseApp.initializeApp(it) }
         functions = FirebaseFunctions.getInstance()
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Set up the team adapter and RecyclerView
         teamAdapter = TeamAdapter(mutableListOf())
         binding.recyclerViewTeams.apply {
             layoutManager = GridLayoutManager(context, 4)
             adapter = teamAdapter
         }
 
-
+        // Observe the team list and update the adapter when data changes
         sharedViewModel.teamList.observe(viewLifecycleOwner, Observer { teams ->
             teams?.let { teamAdapter.updateTeams(it) }
         })
 
+        // Set click listener for the add team button
         binding.buttonAddTeam.setOnClickListener {
             sharedViewModel.resetEditMode()
             sharedViewModel.clearPlayerList()
             findNavController().navigate(R.id.action_allTeamsFragment_to_addEditTeamFragment2)
         }
 
-//        binding.buttonSettings.setOnClickListener {
-//            findNavController().navigate(R.id.action_allTeamsFragment_to_settingsFragment)
-//        }
+        // Set click listener for the about button
         binding.buttonAbout.setOnClickListener {
             findNavController().navigate(R.id.action_allTeamsFragment_to_aboutFragment)
         }
 
+        // Initialize gesture detector for handling single tap and long press
         gestureDetector =
             GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onSingleTapUp(e: MotionEvent): Boolean {
@@ -104,12 +115,14 @@ class AllTeamsFragment : Fragment() {
                 }
             })
 
+        // Set touch listener for the RecyclerView to handle gestures
         binding.recyclerViewTeams.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
             false
         }
     }
 
+    // Show a confirmation dialog to delete a team
     private fun showDeleteConfirmationDialog(team: TeamWithPlayers) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.delete_team))
@@ -126,6 +139,7 @@ class AllTeamsFragment : Fragment() {
             }.show()
     }
 
+    // Send an email to the user when a team is deleted
     private fun sendDeleteMailToUser(teamName: String, userEmail: String) {
         val data = hashMapOf(
             "teamName" to teamName,
@@ -138,6 +152,7 @@ class AllTeamsFragment : Fragment() {
             }
     }
 
+    // Clean up the view binding when the view is destroyed
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
