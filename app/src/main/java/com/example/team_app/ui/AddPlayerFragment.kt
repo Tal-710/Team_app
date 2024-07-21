@@ -33,6 +33,9 @@ class AddPlayerFragment : Fragment() {
     private var _binding: AddPlayerLayoutBinding? = null
     private val binding get() = _binding!!
 
+    // Shared ViewModel for data communication between fragments
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
     // Observer for lifecycle events
     private lateinit var observer: MyLifecycleObserver
 
@@ -48,9 +51,6 @@ class AddPlayerFragment : Fragment() {
                     Editable.Factory.getInstance().newEditable(spokenText)
             }
         }
-
-    // Shared ViewModel for data communication between fragments
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     // Inflate the layout and initialize the binding
     override fun onCreateView(

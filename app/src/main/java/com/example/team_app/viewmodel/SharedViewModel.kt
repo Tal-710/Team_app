@@ -62,10 +62,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         resetEditMode()
     }
 
-//    fun onSpeechResult(result: String) {
-//        _speechResult.value = result
-//    }
-
     fun getSpeechRecognizerIntent(): Intent {
         return Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)

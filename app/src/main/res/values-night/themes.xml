@@ -1,9 +1,6 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.Team_app" parent="Theme.Material3.DayNight.NoActionBar">
-        <!--this is dark theme file,add here styles that you want to be in dark mode-->
-        <!-- for example <item name="colorPrimary">@color/Text_Color_1</item> the color will
-        the same as the one in color night-->
         <item name="android:textColor">@color/text_Color_1</item>
         <item name="android:buttonStyle">@style/Widget.App.Button</item>
     </style>
