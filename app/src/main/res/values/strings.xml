@@ -73,7 +73,7 @@
     <string name="no_contact_number_available">No contact number available</string>
     <string name="can_t_make_call_without_permission">Can\'t make call without permission</string>
     <string name="view_players">View Players</string>
-    <string name="buttoncallcontact">buttonCallContact</string>
+    <string name="button_call_contact">buttonCallContact</string>
     <string name="edit_team">Edit Team</string>
     <string name="about">About</string>
     <string name="add_team">add_team\n</string>
