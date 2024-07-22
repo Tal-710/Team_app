@@ -19,12 +19,4 @@ interface PlayerDao {
     // Delete a player from the database
     @Delete
     suspend fun deletePlayer(player: Player)
-
-    // Query to get all players, ordered by their number in ascending order
-    @Query("SELECT * FROM PLAYERS ORDER BY playerNumber ASC")
-    fun getPlayers(): LiveData<List<Player>>
-
-    // Query to get a specific player by their ID
-    @Query("SELECT * FROM PLAYERS WHERE playerId LIKE :id")
-    suspend fun getPlayer(id: Long): Player
 }
